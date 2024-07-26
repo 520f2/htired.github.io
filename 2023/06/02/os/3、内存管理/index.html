@@ -1,0 +1,1583 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/><meta name="theme-color" content="#222"/><meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1"/><meta name="renderer" content="webkit"/><link rel="icon" type="image/ico" sizes="32x32" href="/assets/favicon.ico"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png"/><link rel="alternate" href="/rss.xml" title="何必要叹气呢？" type="application/rss+xml"><link rel="alternate" href="/atom.xml" title="何必要叹气呢？" type="application/atom+xml"><link rel="alternate" type="application/json" title="何必要叹气呢？" href="https://www.htired.top/feed.json"/><link rel="preconnect" href="https://s4.zstatic.net"/><link rel="preconnect" href="https://at.alicdn.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CFredericka%20the%20Great:400,400italic,700,700italic%7CNoto%20Serif%20JP:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CInconsolata:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" media="none" onload="this.media&#x3D;&#39;all&#39;"><link rel="stylesheet" href="/css/app.css?v=0.4.11"><link rel="modulepreload" href="/js/chunk-C7VPQAZJ.js"></link><link rel="modulepreload" href="/js/chunk-OP34SWN6.js"></link><link rel="modulepreload" href="/js/chunk-XSUN3PYO.js"></link><link rel="modulepreload" href="/js/chunk-XXNEALC7.js"></link><link rel="modulepreload" href="/js/copy-tex-NKUAO3PK.js"></link><link rel="modulepreload" href="/js/index.esm-63SO2F6W.js"></link><link rel="modulepreload" href="/js/post-5CPASQIY.js"></link><link rel="modulepreload" href="/js/quicklink-EAQ7ALMI.js"></link><link rel="modulepreload" href="/js/search-YBVTRJC2.js"></link><link rel="modulepreload" href="/js/siteInit.js"></link><link rel="preload" href="https://github.com/htired/MyPic/blob/main/img/4fc551ee880a11ebb6edd017c2d2eca2.jpg?raw=true" as="image" fetchpriority="high"><link rel="preload" href="https://github.com/htired/MyPic/blob/main/img/792a4b6934fc491b81342206e3192e59.png?raw=true" as="image" fetchpriority="high"><link rel="preload" href="https://raw.githubusercontent.com/htired/MyPic/main/img/1b87e2c5880511ebb6edd017c2d2eca2.png" as="image" fetchpriority="high"><link rel="preload" href="https://github.com/htired/MyPic/blob/main/img/a47a423f9d1c42f8895c53c72f27ff87.jpg?raw=true" as="image" fetchpriority="high"><link rel="preload" href="https://github.com/htired/MyPic/blob/main/img/t1.png?raw=true" as="image" fetchpriority="high"><link rel="preload" href="https://github.com/htired/MyPic/blob/main/img/81d1da7e1ba142629967fea196c73e0e.jpg?raw=true" as="image" fetchpriority="high"><meta name="description" content="送君南浦，伤如之何？"/><link rel="canonical" href="https://www.htired.top/2023/06/02/os/3%E3%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"><title>3、内存管理</title><meta name="generator" content="Hexo 7.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">3、内存管理</h1><div class="meta"><span class="item" title="创建时间：2023-06-02 15:59:49"><span class="icon"><i class="ic i-calendar"></i></span><span class="text">发表于</span><time itemprop="dateCreated datePublished" datetime="2023-06-02T15:59:49+08:00">2023-06-02</time></span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span class="text">本文字数</span><span>83k</span><span class="text">字</span></span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i></span><span class="text">阅读时长</span><span>1:15</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span><span class="line"></span><span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">Htired Love</a></li></ul><ul class="right" id="rightNav"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div class="pjax" id="imgs"><ul><li class="item" style="background-image: url(&quot;https://github.com/htired/MyPic/blob/main/img/4fc551ee880a11ebb6edd017c2d2eca2.jpg?raw=true&quot;);"></li><li class="item" style="background-image: url(&quot;https://github.com/htired/MyPic/blob/main/img/792a4b6934fc491b81342206e3192e59.png?raw=true&quot;);"></li><li class="item" style="background-image: url(&quot;https://raw.githubusercontent.com/htired/MyPic/main/img/1b87e2c5880511ebb6edd017c2d2eca2.png&quot;);"></li><li class="item" style="background-image: url(&quot;https://github.com/htired/MyPic/blob/main/img/a47a423f9d1c42f8895c53c72f27ff87.jpg?raw=true&quot;);"></li><li class="item" style="background-image: url(&quot;https://github.com/htired/MyPic/blob/main/img/t1.png?raw=true&quot;);"></li><li class="item" style="background-image: url(&quot;https://github.com/htired/MyPic/blob/main/img/81d1da7e1ba142629967fea196c73e0e.jpg?raw=true&quot;);"></li></ul></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"></use><use xlink:href="#gentle-wave" x="48" y="3"></use><use xlink:href="#gentle-wave" x="48" y="5"></use><use xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></div><main><div class="inner"><div class="pjax" id="main"><div class="article wrap"><div class="breadcrumb" itemListElement itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i><span><a href="/">首页</a></span><i class="ic i-angle-right"></i><span class="current" itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem"><a href="/categories/os/" itemprop="item" rel="index" title="分类于操作系统"><span itemprop="name">操作系统<meta itemprop="position" content="0"/></span></a></span></div><article class="post block" itemscope="itemscope" itemtype="http://schema.org/Article" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://www.htired.top/2023/06/02/os/3%E3%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"/><span hidden="hidden" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="image" content="/assets/avatar.jpg"/><meta itemprop="name" content="htired"/><meta itemprop="description" content="路还很长，这不是最终的结果, 送君南浦，伤如之何？"/></span><span hidden="hidden" itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="何必要叹气呢？"/></span><div class="body md" itemprop="articleBody"><h1 id="内存的基础知识"><a class="anchor" href="#内存的基础知识">#</a> 内存的基础知识</h1>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206220920770.png" alt="image-20230206220920770" /></p>
+<h2 id="什么是内存"><a class="anchor" href="#什么是内存">#</a> 什么是内存？</h2>
+<p>内存是用于存放数据的硬件。程序执行前 <span style = "color : red">需要先放到内存中才能被CPU处理</span>。</p>
+<hr />
+<p>思考：在多道程序环境下，系统中会有多个程序并发执行，也就是说会有多个程序的数据需要同时放到内存中。</p>
+<ul>
+<li>那么，如何区分各个程序的数据是放在什么地方的呢？</li>
+</ul>
+<p>方案：给内存的存储单元编地址</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206222406228.png" alt="image-20230206222406228" /></p>
+<p>内存中也有一个一个的 “小房间”，每个小房间就是一个 “<span style = "color : red">存储单元</span>”</p>
+<p>内存地址从 0 开始，<span style = "color : red">每个地址对应一个存储单元</span></p>
+<p>如果计算机 “<span style = "color : red">按字节编址</span>”，则 <span style = "color : red">每个存储单元大小</span> 为 <span style = "color : red">1 字节</span>，即 1B ，即 8 个二进制位</p>
+<p>如果 <span style = "color : red">字长为 16 位</span> 的计算机 “<span style = "color : red">按字编址</span>” ，则 <span style = "color : red">每个存储单元大小</span> 为 <span style = "color : red">1个字</span>；每个字的大小为 16 个二进制位</p>
+<hr />
+<p>例如：一台手机 / 电脑有 4GB 内存，是什么意思？</p>
+<ul>
+<li>
+<p>是指该内存中可以存放 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>∗</mo><msup><mn>2</mn><mn>30</mn></msup></mrow><annotation encoding="application/x-tex">4 * 2^{30}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span></span></span></span> 个字节。如果是按字节编址的话，也就是有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mo>∗</mo><msup><mn>2</mn><mn>30</mn></msup><mo>=</mo><mn>232</mn></mrow><annotation encoding="application/x-tex">4*2^{30} = 232</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">4</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">30</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">232</span></span></span></span> 个 “小房间”</p>
+</li>
+<li>
+<p>这么多 “小房间”，需要 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>32</mn></msup></mrow><annotation encoding="application/x-tex">2^{32}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span></span></span></span> 个地址才能一一标识，所以地址需要用 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>32</mn></mrow><annotation encoding="application/x-tex">32</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">32</span></span></span></span> 个二进制位来表示（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mtext> </mtext><msup><mn>2</mn><mn>32</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0~2^{32} -1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord">0</span><span class="mspace nobreak"> </span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">32</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>)</p>
+</li>
+</ul>
+<p><code>注</code> ：有的题目会告诉我们内存的大小，让我们确定地址长度应该是多少 (即要多少个二进制位才能表示相应数目的存储单元)</p>
+<h2 id="进程的运行原理-指令"><a class="anchor" href="#进程的运行原理-指令">#</a> 进程的运行原理 -- 指令</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206223649297.png" alt="image-20230206223649297" /></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206223903047.png" alt="image-20230206223903047" /></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206224032967.png" alt="image-20230206224032967" /></p>
+<ul>
+<li>上述是为了直观的体会指令运行的大致流程</li>
+</ul>
+<p>可见，我们写的代码要翻译成  <code>CPU</code>  能识别的指令。这些指令会告诉  <code>CPU</code>  应该去内存的哪个地址存 / 取数据这个数据应该做什么样的处理。</p>
+<p>在这个例子中，指令中直接给出了变量  <code>x</code>  的实际存放地址（<span style = "color : red">物理地址</span>）。</p>
+<p>但实际在<strong>生成机器指令的时候并不知道该进程的数据会被放到什么位置。</strong></p>
+<ul>
+<li>所以编译生成的指令中一般是使用 <span style = "color : red">逻辑地址（相对地址)</span></li>
+</ul>
+<h2 id="逻辑地址-物理地址"><a class="anchor" href="#逻辑地址-物理地址">#</a> 逻辑地址 &amp; 物理地址</h2>
+<p>宿舍四个人一起出去旅行，四个人的学号尾号分别是 0、1、2、3。<br />
+住酒店时酒店给你们安排了 4 个房号相连的房间。四个人按学号递增次序入住房间。比如 0、1、2、3 号同学分别入住了 5、6、7、8 号房间。</p>
+<p>四个人的编号 0、1、2、3 其实是一个 “相对位置”，而各自入住的房间号是一个 “绝对位置”。</p>
+<p>只要知道 0 号同学住的是房号为  <code>N</code>  的房间，那么  <code>M</code>  号同学的房号一定是  <code>N+M</code> 。</p>
+<p>也就是说，只要知道各个同学的 “相对位置” 和 “起始房号”，就一定可以算出所有同学的 “绝对位置”</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206224502986.png" alt="image-20230206224502986" /></p>
+<p>指令中的地址也可以采用这种思想。编译时产生的指令只关心 “相对地址”，实际放入内存中时再想办法根据起始位置得到 “绝对地址”。</p>
+<p><code>Eg</code> ：编译时只需确定变量  <code>x</code>  存放的相对地址是 100（也就是说相对于进程在内存中的起始地址而言的地址）。 <code>CPU</code>  想要找到  <code>x</code>  在内存中的实际存放位置，只需要用进程的起始地址 +100 即可。</p>
+<p><span style = "color : red">相对地址</span> 又称 <span style = "color : red">逻辑地址</span>，<span style = "color : red">绝对地址</span> 又称 <span style = "color : red">物理地址</span>。</p>
+<h2 id="从写程序到程序运行"><a class="anchor" href="#从写程序到程序运行">#</a> 从写程序到程序运行</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206230620499.png" alt="image-20230206230620499" /></p>
+<p>编译：由编译程序将用户源代码编译成若干个目标模块（编译就是把高级语言 <span style = "color : red">翻译为机器语言</span>)</p>
+<p>链接：由链接程序将编译后形成的一组目标模块，以及所需库函数链接在一起，形成一个完整的装入模块</p>
+<p>装入（装载）：由装入程序将装入模块装入内存运行</p>
+<h2 id="装入模块到运行"><a class="anchor" href="#装入模块到运行">#</a> 装入模块到运行</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206230833405.png" alt="image-20230206230833405" /></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206231333786.png" alt="image-20230206231333786" /></p>
+<p>装入的三种方式；(用三种不同的方法完成 <span style = "color : red">逻辑地址到物理地址的转换</span>）:</p>
+<ol>
+<li>绝对装入</li>
+<li>静态重定位</li>
+<li>动态重定位</li>
+</ol>
+<h2 id="装入的三种方式-绝对装入"><a class="anchor" href="#装入的三种方式-绝对装入">#</a> 装入的三种方式 -- 绝对装入</h2>
+<p><span style = "color : red">绝对装入</span>：在编译时，<strong>如果知道程序将放到内存中的哪个位置，编译程序将产生绝对地址的目标代码</strong>。</p>
+<ul>
+<li>装入程序按照装入模块中的地址，将程序和数据装入内存。</li>
+</ul>
+<p><code>Eg</code> ：如果知道装入模块要从地址为 100 的地方开始存放...</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206231702964.png" alt="image-20230206231702964" /></p>
+<p>绝对装入 <span style = "color : red">只适用于单道程序环境</span>。</p>
+<ul>
+<li>因为<strong>单道程序环境</strong>只运行同一时刻只运行一个程序运行，所以每一个程序从什么时候开始存放可以刚开始就约定好</li>
+<li><strong>在单道程序阶段，此时没有产生操作系统</strong></li>
+</ul>
+<p>程序中使用的绝对地址，可在编译或汇编时给出，也可由程序员直接赋予。</p>
+<ul>
+<li>通常情况下都是<strong>编译或汇编时</strong>再转换为绝对地址。</li>
+</ul>
+<h2 id="装入的三种方式-静态重定位"><a class="anchor" href="#装入的三种方式-静态重定位">#</a> 装入的三种方式 -- 静态重定位</h2>
+<p><span style = "color : red">静态重定位</span>：又称 <span style = "color : red">可重定位装入</span>。</p>
+<p>编译、链接后的装入模块的地址都是从 0 开始的，指令中使用的地址、数据存放的地址都是<strong>相对于起始地址而言的逻辑地址。</strong></p>
+<p>可根据内存的当前情况，将装入模块装入到内存的适当位置。装入时对地址进行 “<span style = "color : red">重定位</span>”，将逻辑地址变换为物理地址（地址变换是在装入时一次完成的)</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206234059550.png" alt="image-20230206234059550" /></p>
+<p>静态重定位的特点是在一个作业装入内存时，<span style = "color : red">必须分配其要求的全部内存空间</span>，如果没有足够的内存，就不能装入该作业。</p>
+<p>作业一旦进入内存后，<span style = "color : red">在运行期间就不能再移动</span>，也不能再申请内存空间。</p>
+<ul>
+<li>若装入之后程序所在的内存地址发生改变，则一开始写入的地址就会变成一种错误的地址</li>
+</ul>
+<hr />
+<p><strong>用于早期的多道批处理操作系统</strong></p>
+<h2 id="装入的三种方式-动态重定位重定位寄存器"><a class="anchor" href="#装入的三种方式-动态重定位重定位寄存器">#</a> 装入的三种方式 -- 动态重定位（重定位寄存器）</h2>
+<p><span style = "color : red">动态重定位</span>：又称 <span style = "color : red">动态运行时装入</span>。编译、链接后的装入模块的地址都是从 0 开始的。装入程序把装入模块装入内存后，并不会立即把逻辑地址转换为物理地址，而 <span style = "color : red">是把地址转换推迟到程序真正要执行时才进行</span>。</p>
+<p>因此装入内存后所有的地址依然是逻辑地址。这种方式需要一个 <span style = "color : red">重定位寄存器</span> 的支持。</p>
+<hr />
+<p>思想：模块在内存中的的 “<span style = "color : red">起始地址</span>”＋目标内存单元相对于起始位置的 “<span style = "color : red">偏移量</span>”</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206234526157.png" alt="image-20230206234526157" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206234716942.png" alt="image-20230206234716942" /></p>
+<p>采用动态重定位时 <span style = "color : red">允许程序在内存中发生移动</span>。</p>
+<ul>
+<li>例如：若把程序的地址改为从 200 开始，就可以将重定位寄存器中的起始位置的值改为 200 即可</li>
+</ul>
+<p>并且可将程序分配到不连续的存储区中；在程序运行前只需装入它的部分代码即可投入运行，然后在程序运行期间，<strong>根据需要动态申请分配内存</strong>；便于程序段的共享，可以向用户提供一个比存储空间大得多的地址空间。</p>
+<hr />
+<p><strong>现代操作系统</strong></p>
+<hr />
+<h2 id="链接的三种方式"><a class="anchor" href="#链接的三种方式">#</a> 链接的三种方式</h2>
+<h3 id="静态链接"><a class="anchor" href="#静态链接">#</a> 静态链接</h3>
+<p>静态链接：在程序运行之前，先将各目标模块及它们所需的库函数连接成一个完整的可执行文件（装入模块)，之后不再拆开。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206235159563.png" alt="image-20230206235159563" /></p>
+<h3 id="装入时动态链接"><a class="anchor" href="#装入时动态链接">#</a> 装入时动态链接</h3>
+<p>装入时动态链接：将各目标模块装入内存时，<strong>边装入边链接</strong>的链接方式。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206235236871.png" alt="image-20230206235236871" /></p>
+<h3 id="运行时动态链接"><a class="anchor" href="#运行时动态链接">#</a> 运行时动态链接</h3>
+<p>运行时动态链接：在程序执行中<strong>需要该目标模块时，才对它进行链接</strong>。</p>
+<p>其优点是便于修改和更新，便于实现对目标模块的共享。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/link.gif" alt="link" /></p>
+<h2 id="整体框架"><a class="anchor" href="#整体框架">#</a> 整体框架</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206235937944.png" alt="image-20230206235937944" /></p>
+<h1 id="内存管理的概念"><a class="anchor" href="#内存管理的概念">#</a> 内存管理的概念</h1>
+<p>操作系统作为系统资源的管理者，当然也需要对内存进行管理，要管些什么呢？</p>
+<h2 id="内存空间的分配与回收"><a class="anchor" href="#内存空间的分配与回收">#</a> 内存空间的分配与回收</h2>
+<p>操作系统负责内存空间的分配与回收</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207002018111.png" alt="image-20230207002018111" /></p>
+<h2 id="内存空间的扩充"><a class="anchor" href="#内存空间的扩充">#</a> 内存空间的扩充</h2>
+<p>操作系统需要提供某种技术从逻辑上对内存空间进行扩充</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207002220575.png" alt="image-20230207002220575" /></p>
+<h2 id="地址转换"><a class="anchor" href="#地址转换">#</a> 地址转换</h2>
+<p>操作系统需要提供地址转换功能，负责程序的 <span style = "color : red">逻辑地址</span> 与 <span style = "color : red">物理地址</span> 的转换</p>
+<p>为了使编程更方便，程序员写程序时应该只需要关注指令、数据的逻辑地址。</p>
+<p>而 <span style = "color : red">逻辑地址到物理地址的转换</span>（这个过程称为 <span style = "color : red">地址重定位</span>）应该由操作系统负责，</p>
+<ul>
+<li>这样就保证了程序员写程序时不需要关注物理内存的实际情况。</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207003040831.png" alt="image-20230207003040831" /></p>
+<h2 id="内存保护"><a class="anchor" href="#内存保护">#</a> 内存保护</h2>
+<p>操作系统需要提供内存保护功能。保证各进程在各自存储空间内运行，<strong>互不干扰</strong></p>
+<p>让各个进程只能访问自己的内存空间，而不能访问别的进程空间</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207003315502.png" alt="image-20230207003315502" /></p>
+<p>内存保护可采取两种方法:</p>
+<h3 id="上-下限寄存器"><a class="anchor" href="#上-下限寄存器">#</a> 上、下限寄存器</h3>
+<p>方法一：在  <code>CPU</code>  中设置一对 <span style = "color : red">上、下限寄存器</span>，存放进程的上、下限地址。</p>
+<p>进程的指令要访问某个地址时， <code>CPU</code>  检查是否越界。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207003501301.png" alt="image-20230207003501301" /></p>
+<p>可见上、下限寄存器只支持<strong>连续的分配内存</strong></p>
+<h3 id="重定位寄存器和界地址寄存器"><a class="anchor" href="#重定位寄存器和界地址寄存器">#</a> 重定位寄存器和界地址寄存器</h3>
+<p>方法二：采用 <span style = "color : red">重定位寄存器</span>（又称 <span style = "color : red">基址寄存器</span>）和 <span style = "color : red">界地址寄存器</span>（又称 <span style = "color : red">限长寄存器</span>）进行越界检查。</p>
+<p>重定位寄存器中存放的是进程的 <span style = "color : red">起始物理地址</span>。界地址寄存器中存放的是进程的 <span style = "color : red">最大逻辑地址</span>。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207003840441.png" alt="image-20230207003840441" /></p>
+<p>3.2.5、整体框架</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207004135196.png" alt="image-20230207004135196" /></p>
+<h1 id="覆盖-交换技术"><a class="anchor" href="#覆盖-交换技术">#</a> 覆盖 &amp; 交换技术</h1>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207215243549.png" alt="image-20230207215243549" /></p>
+<h2 id="覆盖技术同一进程"><a class="anchor" href="#覆盖技术同一进程">#</a> 覆盖技术（同一进程）</h2>
+<p>早期的计算机内存很小，比如  <code>IBM</code>  推出的第一台  <code>PC</code>  机最大只支持 1MB 大小的内存。因此经常会出现内存大小不够的情况。</p>
+<p>后来人们引入了 <span style = "color : red">覆盖技术</span>, 用来 <span style = "color : red">解决 “程序大小超过物理内存总和” 的问题</span></p>
+<hr />
+<p>覆盖技术的思想：将 <span style = "color : red">程序分为多个段</span>（多个模块）。常用的段常驻内存，不常用的段在需要时调入内存。</p>
+<h3 id="固定区-覆盖区"><a class="anchor" href="#固定区-覆盖区">#</a> 固定区 &amp; 覆盖区</h3>
+<p>内存中分为 <span style = "color : red">一个 “固定区” </span> 和 <span style = "color : red">若干个 “覆盖区”</span>。</p>
+<ul>
+<li>需要<strong>常驻内存的段</strong>放在 “<span style = "color : red">固定区</span>” 中，<span style = "color : red">调入后就不再调出</span>（除非运行结束）
+<ul>
+<li>比如说  <code>main</code>  函数（程序的入口），将该模块放入到固定区中</li>
+</ul>
+</li>
+<li><strong>不常用的段</strong>放在 “<span style = "color : red">覆盖区</span>”，<span style = "color : red">需要用到时调入内存，用不到时调出内存</span></li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207210425684.png" alt="image-20230207210425684" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207210722895.png" alt="image-20230207210722895" /></p>
+<p>按照自身逻辑结构，<strong>让那些不可能同时被访问的程序段共享同一个覆盖区</strong></p>
+<hr />
+<p><span style = "color : red">必须由程序员声明覆盖结构</span>，操作系统完成自动覆盖。</p>
+<p><span style = "color : red">缺点：对用户不透明</span>，增加了用户编程负担。</p>
+<ul>
+<li>操作系统不知道哪个模块与哪个模块有关系</li>
+</ul>
+<p>覆盖技术只用于早期的操作系统中，现在已成为历史</p>
+<h2 id="交换技术不同进程"><a class="anchor" href="#交换技术不同进程">#</a> 交换技术（不同进程）</h2>
+<p>交换（对换）技术的设计思想（就是中级调度）：</p>
+<ul>
+<li><strong>内存空间紧张时</strong>，系统将内存中某些进程暂时 <span style = "color : red">换出</span> 外存，把外存中某些已具备运行条件的进程 <span style = "color : red">换入</span> 内存（进程在内存与磁盘间动态调度)</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207213218097.png" alt="image-20230207213218097" /></p>
+<p><span style = "color : red">中级调度（内存调度）</span>，就是要决定将哪个处于挂起状态的进程重新调入内存</p>
+<hr />
+<p>暂时换出外存等待的进程状态为 <span style = "color : red">挂起状态（挂起态，suspend）</span></p>
+<p>挂起态又可以进一步细分为 <span style = "color : red">就绪挂起</span>、<span style = "color : red">阻塞挂起</span> 两种状态</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230121203748888.png" alt="image-20230121203748888" /></p>
+<hr />
+<h3 id="对换区-文件区"><a class="anchor" href="#对换区-文件区">#</a> 对换区 &amp; 文件区</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207214344373.png" alt="image-20230207214344373" /></p>
+<p>① 应该在外存（磁盘）的什么位置保存被换出的进程？</p>
+<p>具有对换功能的操作系统中，通常把磁盘空间分为 <span style = "color : red">文件区</span> 和 <span style = "color : red">对换区</span> 两部分。</p>
+<p><span style = "color : red">文件区</span> 主要用于存放文件，<span style = "color : red">主要追求存储空间的利用率</span>，因此对文件区空间的管理 <span style = "color : red">采用离散分配方式</span>;</p>
+<p><span style = "color : red">对换区</span> 空间只占磁盘空间的小部分，被换出的进程数据就存放在对换区。</p>
+<ul>
+<li>由于对换的速度<strong>直接影响到系统的整体速度</strong>，因此对换区空间的管理 <span style = "color : red">主要追求换入换出速度</span>，因此通常对换区 <span style = "color : red">采用连续分配方式</span>（学过文件管理章节后即可理解）。</li>
+</ul>
+<p>总之，<span style = "color : red">对换区的 I/O 速度比文件区的更快</span>。</p>
+<hr />
+<p>② 什么时候应该交换？</p>
+<p>交换通常在许多进程运行且<strong>内存吃紧</strong>时进行，而<strong>系统负荷降低就暂停</strong>。</p>
+<ul>
+<li>例如：在发现许多进程运行时<strong>经常发生缺页</strong>，就说明内存紧张，此时可以换出一些进程；</li>
+<li>如果缺页率明显下降，就可以暂停换出。</li>
+</ul>
+<hr />
+<p>③ 应该换出哪些进程？</p>
+<p>可优先换出阻塞进程；可换出优先级低的进程；</p>
+<ul>
+<li>为了防止优先级低的进程在被调入内存后<strong>很快又被换出</strong>，有的系统还会考虑进程在内存的驻留时间...</li>
+</ul>
+<p>（<span style = "color : red">注意：PCB会常驻内存</span>，不会被换出外存）</p>
+<h1 id="连续分配管理方式"><a class="anchor" href="#连续分配管理方式">#</a> 连续分配管理方式</h1>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207231045485.png" alt="image-20230207231045485" /></p>
+<h2 id="单一连续分配有内部碎片"><a class="anchor" href="#单一连续分配有内部碎片">#</a> 单一连续分配（有内部碎片）</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207215654242.png" alt="image-20230207215654242" /></p>
+<p>在单一连续分配方式中，内存被分为 <span style = "color : red">系统区</span> 和 <span style = "color : red">用户区</span>。</p>
+<p>系统区通常位于内存的低地址部分，用于存放操作系统相关数据；用户区用于存放用户进程相关数据。</p>
+<p>内存中 <span style = "color : red">只能有一道用户程序</span>，用户程序独占整个用户区空间。</p>
+<ul>
+<li>即使用户区还有很大的内存空间，也不会分配给其他的进程，独占</li>
+</ul>
+<p><span style = "color : red">优点</span>：</p>
+<ul>
+<li>实现简单；<span style = "color : red">无外部碎片</span>；</li>
+<li>可以采用<strong>覆盖技术扩充内存</strong>；</li>
+<li>不一定需要采取内存保护（  <code>eg</code> ：早期的 PC 操作系统  <code>MS-DoS</code> ）。
+<ul>
+<li>即使该用户程序出现问题了，也只会影响自身。即使越界影响到了系统，重启过后也可以进行修复，因为内存中只有一个进程，很容易找出问题所在。</li>
+</ul>
+</li>
+</ul>
+<p><span style = "color : red">缺点</span>：</p>
+<ul>
+<li>只能用于单用户、单任务的操作系统；</li>
+<li><span style = "color : red">有内部碎片</span>；</li>
+<li><strong>存储器利用率极低</strong></li>
+</ul>
+<p><span style = "color : red">内部碎片</span>：分配给某进程的内存区域中，<strong>若有些部分没有用上</strong>，就是 &quot;内部碎片&quot;</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207220303633.png" alt="image-20230207220303633" /></p>
+<h2 id="固定分区分配"><a class="anchor" href="#固定分区分配">#</a> 固定分区分配</h2>
+<p>20 世纪 60 年代出现了支持多道程序的系统，为了能在内存中装入多道程序，且这些程序之间又不会相互干扰，</p>
+<p>于是将整个 <span style = "color : red">用户空间</span> 划分为 <span style = "color : red">若干个固定大小的分区</span>，在 <span style = "color : red">每个分区中只装入一道作业</span>，这样就形成了最早的、最简单的一种可运行多道程序的内存管理方式。</p>
+<h3 id="分区大小不相等"><a class="anchor" href="#分区大小不相等">#</a> 分区大小（不）相等</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207220529882.png" alt="image-20230207220529882" /></p>
+<p><strong>分区大小相等</strong>：</p>
+<ul>
+<li>缺乏灵活性，
+<ul>
+<li>因为每个分区只能装入一道作业，所以本来占用很小内存的进程就会占用一个大的多余的分区</li>
+<li>若一个进程所需内存很大的话，那么该进程就不能装入该分区。</li>
+<li>或者说采用覆盖技术在逻辑上扩充分区的大小，则会占用很大的系统开销</li>
+</ul>
+</li>
+<li>但是很 <span style = "color : red">适合用于用一台计算机控制多个相同对象的场合</span>
+<ul>
+<li>比如：钢铁厂有 n 个相同的炼钢炉，就可把内存分为 n 个大小相等的区域存放 n 个炼钢炉控制程序)</li>
+</ul>
+</li>
+</ul>
+<p><strong>分区大小不等</strong>：</p>
+<ul>
+<li>增加了灵活性，可以满足不同大小的进程需求。</li>
+<li>根据常在系统中运行的作业大小情况进行划分
+<ul>
+<li>比如：划分多个小分区、适量中等分区、少量大分区</li>
+</ul>
+</li>
+</ul>
+<h3 id="分区说明表有内部碎片"><a class="anchor" href="#分区说明表有内部碎片">#</a> 分区说明表（有内部碎片）</h3>
+<p>操作系统需要建立一个数据结构――<span style = "color : red">分区说明表</span>，来实现各个分区的分配与回收。每个表项对应一个分区，通常按分区大小排列。</p>
+<p>每个表项包括对应分区的 <span style = "color : red">大小、起始地址、状态</span>（是否已分配）。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207221414176.png" alt="image-20230207221414176" /></p>
+<p>当某用户程序要装入内存时，由操作系统内核程序<strong>根据用户程序大小检索该表</strong>。从中找到一个能满足大小的、未分配的分区，将之分配给该程序，然后修改状态为 “己分配” 。</p>
+<hr />
+<p>** 优点：** 实现简单，<span style = "color : red">无外部碎片</span>。</p>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>当用户程序太大时，可能所有的分区都不能满足需求，此时不得不采用<strong>覆盖技术来解决</strong>，但这又会降低性能；</li>
+<li>会产生 <span style = "color : red">内部碎片</span>，内存利用率低。</li>
+</ul>
+<h2 id="动态分区分配有外部碎片"><a class="anchor" href="#动态分区分配有外部碎片">#</a> 动态分区分配（有外部碎片</h2>
+<p><span style = "color : red">动态分区分配</span> 又称为 <span style = "color : red">可变分区分配</span>。</p>
+<p>这种分配方式 <span style = "color : red">不会预先划分内存分区</span>，而是在进程装入内存时，<span style = "color : red">根据进程的大小动态地建立分区</span>，并使分区的大小正好适合进程的需要。</p>
+<p>因此系统分区的大小和数目是可变的。</p>
+<p>动态分区分配 <span style = "color : red">没有内部碎片</span>，但是 <span style = "color : red">有外部碎片</span>。</p>
+<p>动态分区分配使用的是动态重定位技术实现装入</p>
+<ul>
+<li>即：在程序运行时根据需求动态的装入</li>
+</ul>
+<hr />
+<p><code>eg</code> ：假设某计算机内存大小为 64MB，系统区 8MB ，用户区共 56 MB...）</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207222152204.png" alt="image-20230207222152204" /></p>
+<ol>
+<li>系统要用什么样的数据结构<strong>记录内存的使用情况</strong>？</li>
+<li>当很多个空闲分区都能满足需求时，应该<strong>选择哪个分区</strong>进行分配？</li>
+<li>如何进行分区的<strong>分配与回收</strong>操作？</li>
+</ol>
+<hr />
+<h3 id="空闲分区表链"><a class="anchor" href="#空闲分区表链">#</a> 空闲分区表 / 链</h3>
+<p>① 系统要用什么样的数据结构<strong>记录内存的使用情况</strong>？</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207222633471.png" alt="image-20230207222633471" /></p>
+<p><strong>空闲分区表</strong>：每个空闲分区对应个表项。</p>
+<ul>
+<li>表项中包含分区号、分区大小、分区起始地址等信息</li>
+</ul>
+<p><strong>空闲分区链</strong>：每个分区的其实部分和末尾部分分别设置前向指针和后向指针。</p>
+<ul>
+<li>其实部分出还可记录分区大小等信息</li>
+</ul>
+<h3 id="多个空闲分区选择哪一个分配"><a class="anchor" href="#多个空闲分区选择哪一个分配">#</a> 多个空闲分区选择哪一个分配？</h3>
+<p>② 当很多个空闲分区都能满足需求时，应该<strong>选择哪个分区</strong>进行分配？</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207222802442.png" alt="image-20230207222802442" /></p>
+<p>把一个新作业装入内存时，须按照一定的 <span style = "color : red">动态分区分配算法</span>，从空闲分区表（或空闲分区链）中选出一个分区分配给该作业。</p>
+<p><strong>由于分配算法算法对系统性能有很大的影响</strong>，因此人们对它进行了广泛的研究。</p>
+<h3 id="空闲分区的分配与回收"><a class="anchor" href="#空闲分区的分配与回收">#</a> 空闲分区的分配与回收</h3>
+<p>③ 如何进行分区的<strong>分配与回收</strong>操作？</p>
+<h4 id="分配"><a class="anchor" href="#分配">#</a> 分配</h4>
+<p>假设系统采用的数据结构是 “空闲分区表” 如何分配？</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207223051180.png" alt="image-20230207223051180" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207223308960.png" alt="image-20230207223308960" /></p>
+<h4 id="回收"><a class="anchor" href="#回收">#</a> 回收</h4>
+<p>假设系统采用的数据结构是 “空闲分区表” 如何回收？</p>
+<p><strong>情况一：回收区的后面有一个相邻的空闲分区</strong></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207223416365.png" alt="image-20230207223416365" /></p>
+<hr />
+<p><strong>情况二：回收区的前面有一个相邻的空闲分区</strong></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207223629620.png" alt="image-20230207223629620" /></p>
+<hr />
+<p><strong>情况三：回收区的前、后有一个相邻的空闲分区</strong></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207223730854.png" alt="image-20230207223730854" /></p>
+<hr />
+<p><strong>情况四：回收区的前、后有都没有相邻的空闲分区</strong></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207223918992.png" alt="image-20230207223918992" /></p>
+<hr />
+<p><code>注</code> ：各表项的顺序不一定按照地址递增顺序排列，<strong>具体的排列方式需要依据动态分区分配算法来确定</strong>。</p>
+<p>例如：对于空闲分区表采用动态的扩充表格，而对于空闲分区链的话采用头 / 尾插法或者定位至中间插入</p>
+<hr />
+<h2 id="内部碎片-外部碎片"><a class="anchor" href="#内部碎片-外部碎片">#</a> 内部碎片 &amp; 外部碎片</h2>
+<p><span style = "color : red">内部碎片</span>，分配给某进程的内存区域中，如果有些部分没有用上</p>
+<p><span style = "color : red">外部碎片</span>，是指内存中<strong>的某些空闲分区由于太小而难以利用</strong>。</p>
+<ul>
+<li>因为各个进程需要的都是一整个连续的空闲内存，</li>
+<li>所以若这个空闲分区太小，那么任何一个空闲分区不能满足进程的需求</li>
+</ul>
+<hr />
+<p>内存碎片：分配出去没有用上。外部碎片：没有分配出去但没法用</p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207225242139.png" alt="image-20230207225242139" /></p>
+<p>上图所示，若进程  <code>2</code>  （14 MB）的进程又可以执行了</p>
+<ul>
+<li>此时可以发现，内存的任何一个区域都不能满足进程  <code>2</code>  的需求</li>
+</ul>
+<p>所以就产生了外部碎片。</p>
+<hr />
+<p>如果内存中空闲空间的总和本来可以满足某进程的要求，但由于进程需要的是<strong>一整块连续的内存空间</strong>，</p>
+<ul>
+<li>因此这些 “碎片” 不能满足进程的需求。</li>
+</ul>
+<p>例如：上述所示的进程  <code>2</code> （14 MB），内存中零散的 &quot;碎片&quot; 总和为 14 MB，本来可以满足进程 2，但是不是连续的，所以满足不了进程  <code>2</code>  的需求</p>
+<hr />
+<p>可以通过 <span style = "color : red">紧凑（拼凑，Compaction）</span> 技术来解决外部碎片。</p>
+<h3 id="紧凑技术解决外部碎片"><a class="anchor" href="#紧凑技术解决外部碎片">#</a> 紧凑技术解决外部碎片</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207230151788.png" alt="image-20230207230151788" /></p>
+<p><strong>&quot;紧凑&quot; 之后的处理</strong></p>
+<ul>
+<li>将各个进程的起始地址修改掉，起始地址一般来说是存放在进程的  <code>PCB</code>  当中</li>
+<li>当进程上  <code>CPU</code>  运行之前，会把进程的起始地址放入到重定位寄存器（基址寄存器）中</li>
+</ul>
+<h1 id="动态分区分配算法"><a class="anchor" href="#动态分区分配算法">#</a> 动态分区分配算法</h1>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th><span style = "color : red">算法思想</span></th>
+<th>分区排列顺序</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首次适应</td>
+<td><span style = "color : red">从头到尾寻找合适的分区</span></td>
+<td>空闲分区以地址递增顺序排列</td>
+<td>综合看性能最好。<strong>算法开销小</strong>，回收分区后一般不需要对空闲分区队列重新排序</td>
+<td>可能会导致低地址部分出现很多小的空闲分区，而每次分配查找时，都要经过这些分区，因此也增加了查找的开销。</td>
+</tr>
+<tr>
+<td>最佳适应</td>
+<td><span style = "color : red">优先使用更小的分区，以保留更大的分区</span></td>
+<td>空闲分区以容量递增次序排列</td>
+<td>会有更多的大分区被保留下来，更能满足大进程需求</td>
+<td>会产生很多太小的、难以利用的碎片；<strong>算法开销大</strong>，回收分区后可能需要对空闲分区队列重新排序</td>
+</tr>
+<tr>
+<td>最坏适应</td>
+<td><span style = "color : red">优先使用更大的分区，以防止产生太小的不可用的碎片（外部碎片）</span></td>
+<td>空闲分区以容量递减顺序排列</td>
+<td>可以减少难以利用的小碎片</td>
+<td>大分区容易被用完，不利于大进程；<strong>算法开销大</strong>（原因同上）</td>
+</tr>
+<tr>
+<td>邻近适应</td>
+<td><span style = "color : red">右首次适应演变而来，每次从上次查找结束位置开始查找</span></td>
+<td>空闲分区以地址递减顺序排列</td>
+<td>不用每次都从低地址的小分区开始检索。<strong>算法开销小</strong>（原因同首次适应算法)</td>
+<td>会使高地址的大分区也被用完</td>
+</tr>
+</tbody>
+</table>
+<h2 id="首次适应算法"><a class="anchor" href="#首次适应算法">#</a> 首次适应算法</h2>
+<p><span style = "color : red">算法思想</span>：每次都从低地址开始查找，找到第一个能满足大小的空闲分区。</p>
+<p><span style = "color : red">如何实现：空闲分区以地址递增的次序排列</span>。</p>
+<ul>
+<li>每次分配内存时<strong>顺序查找</strong> <span style = "color : red">空闲分区链</span>（或 <span style = "color : red">空闲分区表</span>)，找到大小能满足要求的第一个空闲分区。</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230207233859035.png" alt="image-20230207233859035" /></p>
+<p><span style = "color : red">缺点：可能会导致低地址部分出现很多小的空闲分区，而每次分配查找时，都要经过这些分区，因此也增加了查找的开销。</span></p>
+<h2 id="最佳适应算法"><a class="anchor" href="#最佳适应算法">#</a> 最佳适应算法</h2>
+<p><span style = "color : red">算法思想</span>：由于动态分区分配是一种连续分配方式，为各进程分配的空间必须是连续的一整片区域。</p>
+<p>因此为了保证当 “大进程” 到来时能有连续的大片空间，可<strong>以尽可能多地留下大片的空闲区</strong>，</p>
+<ul>
+<li>即，优先使用更小的空闲区。</li>
+</ul>
+<p><span style = "color : red">如何实现</span>：空闲分区 <span style = "color : red">按容量递增次序链接</span>。每次分配内存时顺序查找 <span style = "color : red">空闲分区链</span>（或 <span style = "color : red">空闲分区表</span>)，找到大小能满足要求的第一个空闲分区。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208000543622.png" alt="image-20230208000543622" /></p>
+<p><span style = "color : red">缺点：每次都选最小的分区进行分配，会留下越来越多的、很小的、难以利用的内存块。因此这种方法会产生很多的外部碎片。</span></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208002734365.png" alt="image-20230208002734365" /></p>
+<h2 id="最坏大适应算法"><a class="anchor" href="#最坏大适应算法">#</a> 最坏（大）适应算法</h2>
+<p>又称 <span style = "color : red">最大适应算法</span>（Largest Fit）</p>
+<p><span style = "color : red">算法思想</span>：为了解决最佳适应算法的问题――即留下太多难以利用的小碎片，可以在每次分配时优先使用最大的连续空闲区，这样分配后剩余的空闲区就不会太小，更方便使用。</p>
+<p><span style = "color : red">如何实现</span>：空闲分区 <span style = "color : red">按容量递减次序链接</span>。每次分配内存时顺序查找 <span style = "color : red">空闲分区链</span>（或 <span style = "color : red">空闲分区表</span>)，找到大小能满足要求的第一个空闲分区</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208003005903.png" alt="image-20230208003005903" /></p>
+<p><span style = "color : red">缺点：每次都选最大的分区进行分配，虽然可以让分配后留下的空闲区更大，更可用，但是这种方式会导致较大的连续空闲区被迅速用完。如果之后有“大进程”到达，就没有内存分区可用了。</span></p>
+<h2 id="邻近适应算法"><a class="anchor" href="#邻近适应算法">#</a> 邻近适应算法</h2>
+<p><span style = "color : red">算法思想</span>：首次适应算法每次都从链头开始查找的。这可能会导致低地址部分出现很多小的空闲分区，而每次分配查找时，都要经过这些分区，因此也增加了查找的开销。</p>
+<p>如果每次<strong>都从上次查找结束的位置开始检索</strong>，就能解决上述问题。</p>
+<p><span style = "color : red">如何实现</span>：空闲分区 <span style = "color : red">按地址递增次序链接</span>。每次分配内存时 <span style = "color : red">从上次查找结束的位置开始</span> 查找 <span style = "color : red">空闲分区链</span>（或 <span style = "color : red">空闲分区表</span>)，找到大小能满足要求的第一个空闲分区。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208003518237.png" alt="image-20230208003518237" /></p>
+<p>首次适应算法每次都要从头查找，每次都需要检索低地址的小分区。</p>
+<ul>
+<li>但是这种规则也决定了当低地址部分有更小的分区可以满足需求时，会更有可能<strong>用到低地址部分的小分区</strong>，也会更有可能把<strong>高地址部分的大分区保留下来</strong>（最佳适应算法的优点)</li>
+</ul>
+<p>邻近适应算法的规则可能会导致无论低地址、高地址部分的空闲分区都有<strong>相同的概率</strong>被使用，也就导致了高地址部分的大分区更可能被使用，划分为小分区，最后导致无大分区可用（最大适应算法的缺点)</p>
+<hr />
+<p>综合来看，<span style = "color : red">四种算法中，首次适应算法的效果反而更好</span></p>
+<h1 id="基本分页存储管理"><a class="anchor" href="#基本分页存储管理">#</a> 基本分页存储管理</h1>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208204455224.png" alt="image-20230208204455224" /></p>
+<h2 id="连续分配方式的缺点"><a class="anchor" href="#连续分配方式的缺点">#</a> 连续分配方式的缺点</h2>
+<p>考虑支持多道程序的两种连续分配方式:</p>
+<ol>
+<li>固定分区分配：
+<ul>
+<li>缺乏灵活性，会产生大量的内部碎片，内存的利用率很低。</li>
+</ul>
+</li>
+<li>动态分区分配：
+<ul>
+<li>会产生很多外部碎片，虽然可以用 “紧凑” 技术来处理，但是 “紧凑” 的时间代价很高</li>
+</ul>
+</li>
+</ol>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208203958999.png" alt="image-20230208203958999" /></p>
+<hr />
+<p>如果允许将一个进程<strong>分散地装入到许多不相邻的分区</strong>中，便可充分地利用内存，而无需再进行 “紧凑”</p>
+<p>基于这一思想，产生了 “非连续分配方式” ，或者称为 “离散分配方式”。</p>
+<hr />
+<p><span style = "color : red">连续分配</span>：为用户进程分配的必须是 <span style = "color : red">一个连续的内存空间</span>。</p>
+<p><span style = "color : red">非连续分配</span>：为用户进程分配的可以是 <span style = "color : red">一些分散的内存空间</span>。</p>
+<hr />
+<h2 id="把-固定分区分配-改造为-非连续分配版本"><a class="anchor" href="#把-固定分区分配-改造为-非连续分配版本">#</a> 把 &quot;固定分区分配&quot; 改造为 &quot;非连续分配版本&quot;</h2>
+<p>假设进程  <code>A</code>  大小为 23MB，但是每个分区大小只有 10MB ，如果进程只能占用一个分区，那显然放不下。</p>
+<p>解决思路：如果允许进程占用多个分区，那么可 <span style = "color : red">以把进程拆分成 10MB + 10MB + 3MB 三个部分</span>，再把这三个部分分别放到三个分区中（这些 <span style = "color : red">分区不要求连续</span>）....</p>
+<p>进程  <code>A</code>  的最后一个部分是 3MB，放入分区后会产生 7MB 的内部碎片。<br />
+如果每个分区大小为 2MB ，那么进程  <code>A</code>  可以拆分成  <code>11*2MB +1MB</code>  共 12 个部分，只有最后一部分 1MB 占不满分区，会产生 1MB 的内部碎片。</p>
+<p>显然，<span style = "color : red">如果把分区大小设置的更小一些，内部碎片会更小，内存利用率会更高</span>。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208204818283.png" alt="image-20230208204818283" /></p>
+<h2 id="基本分页存储管理基本概念"><a class="anchor" href="#基本分页存储管理基本概念">#</a> 基本分页存储管理基本概念</h2>
+<p>基本分页存储管理的思想一一把内存分为<strong>一个个相等的小分区</strong>，再<strong>按照分区大小把进程拆分成一个个小部分</strong></p>
+<hr />
+<h3 id="页框内存块-物理块-页面内部碎片"><a class="anchor" href="#页框内存块-物理块-页面内部碎片">#</a> 页框 (内存块、物理块) &amp; 页面，内部碎片</h3>
+<p>将内存空间分为一个个 <span style = "color : red">大小相等的分区</span>（比如：每个分区 4KB ），每个<strong>分区</strong>就是一个 “<span style = "color : red">页框</span>”，或称 “<span style = "color : red">页帧</span>”、“<span style = "color : red">内存块</span>”、“<span style = "color : red">物理块</span>”。每个页框有一个编号，即 “<span style = "color : red">页框号</span>”（或者 “<span style = "color : red">内存块号</span>”、“<span style = "color : red">页帧号</span>”、“<span style = "color : red">物理块号</span>”）</p>
+<ul>
+<li>页框号 <span style = "color : red"><b>从 0 开始</b></span>。</li>
+</ul>
+<p>将<strong>用户进程的地址空间</strong>也分为 <span style = "color : red">与页框大小相等</span> 的一个个区域，称为 “<span style = "color : red">页</span>” 或 “<span style = "color : red">页面</span>” 。</p>
+<ul>
+<li>每个页面也有一个编号，即 “<span style = "color : red">页号</span>” ，页号也是 <span style = "color : red"><b>从 0 开始</b></span>。</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208215308403.png" alt="image-20230208215308403" /></p>
+<p><strong>注</strong>：进程的最后一个页面可能没有一个页框那么大。因此，<span style = "color : red">页框不能太大，否则可能产生过大的内部碎片</span></p>
+<ul>
+<li>例如：进程  <code>A</code>  大小为 15 KB，则最后一个页面大小为 3 KB。3 KB 的页面放入到 4KB 的页框里</li>
+<li>显然会产生 1 KB 内部碎片</li>
+</ul>
+<hr />
+<p>操作系统 <span style = "color : red">以页框为单位为各个进程分配</span> 内存空间。</p>
+<p>进程的每个页面分别放入一个页框中。</p>
+<ul>
+<li>也就是说，进程的 <span style = "color : red">页面</span> 与内存的 <span style = "color : red">页框</span> 有 <span style = "color : red">一一对应</span> 的关系。</li>
+</ul>
+<p><strong>各个页面不必连续存放，也不必按先后顺序来，可以放到不相邻的各个页框中。</strong></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208215505953.png" alt="image-20230208215505953" /></p>
+<hr />
+<h3 id="如何实现地址的转换"><a class="anchor" href="#如何实现地址的转换">#</a> 如何实现地址的转换</h3>
+<p>将进程地址空间 <span style = "color : red">分页</span> 之后，操作系统该如何实现逻辑地址到物理地址的转换？</p>
+<hr />
+<p>进程在内存中 <span style = "color : red">连续存放</span> 时，操作系统是如何实现逻辑地址到物理地址的转换的？</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206234526157.png" alt="image-20230206234526157" /></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230206234716942.png" alt="image-20230206234716942" /></p>
+<p>思想：模块在内存中的的 “<span style = "color : red">起始地址</span>”＋目标内存单元相对于起始位置的 “<span style = "color : red">偏移量</span>”</p>
+<hr />
+<p>如果采用 <span style = "color : red">分页技术</span>，应该如何实现地址转换？</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208221800850.png" alt="image-20230208221800850" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230208221918222.png" alt="image-20230208221918222" /></p>
+<p>逻辑地址为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>80</mn></mrow><annotation encoding="application/x-tex">80</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">80</span></span></span></span> 的内存单元：</p>
+<p>应该在 <span style = "color : red">1 号页</span>，该页在内存中的 <span style = "color : red">起始位置为 450</span>，逻辑地址为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>80</mn></mrow><annotation encoding="application/x-tex">80</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">80</span></span></span></span> 的内存单元相对于<strong>该页的起始地址（50）而言</strong>，<span style = "color : red">“偏移量”应该是 30 </span>。</p>
+<p><span style = "color : red">实际物理地址</span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>=</mo><mn>450</mn><mo>+</mo><mn>30</mn><mo>=</mo><mn>480</mn></mrow><annotation encoding="application/x-tex">= 450 + 30 = 480</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">450</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">30</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">480</span></span></span></span></p>
+<hr />
+<ol>
+<li>要算出逻辑地址对应的 <span style = "color : red">页号</span></li>
+<li>要知道该页号对应 <span style = "color : red">页面在内存中的起始地址</span></li>
+<li>要算出逻辑地址 <span style = "color : red">在页面内的“偏移量”</span></li>
+<li><span style = "color : red">物理地址 = 页面始址＋页内偏移量</span></li>
+</ol>
+<hr />
+<p>如何计算:</p>
+<ul>
+<li>
+<p><span style = "color : red">页号</span> = 逻辑地址 / 页面长度（取除法的整数部分)</p>
+</li>
+<li>
+<p><span style = "color : red">页内偏移量</span> = 逻辑地址 % 页面长度（取除法的余数部分）</p>
+</li>
+<li>
+<p>页面 <span style = "color : red">在内存中的起始位置</span>：操作系统需要用某种数据结构记录进程各个页面的起始位置。</p>
+</li>
+</ul>
+<p><span style = "color : red">页号</span> = 80 / 50 = 1</p>
+<p><span style = "color : red">页内偏移量</span>= 80 % 50 = 30</p>
+<p><span style = "color : red">1 号页</span> 在内存中存放的 <span style = "color : red">起始位置</span> 450</p>
+<p>物理地址 = 页面始址＋页内偏移量 = 450 + 30 = 480</p>
+<hr />
+<p>为了方便计算页号、页内偏移量，<span style = "color : red">页面大小</span> 一般设为 <span style = "color : red">2 的整数幂</span></p>
+<p>假设用 32 个二进制位表示逻辑地址，页面大小为 2<sup>12</sup> B= 4096 B = 4 KB</p>
+<p><span style = "color : red">0 号页</span> 的逻辑地址空间应该是 0~4095 ，用二进制表示应该是:</p>
+<ul>
+<li><span style = "color : red">00000000000000000000</span><u>000000000000</u> ~ <span style = "color : red">00000000000000000000</span>111111111111</li>
+</ul>
+<p><span style = "color : red">1号页</span> 的逻辑地址空间应该是 4096~8191，用二进制表示应该是:</p>
+<ul>
+<li><span style = "color : red">00000000000000000001</span><u>000000000000</u> ~ <span style = "color : red">00000000000000000001</span>111111111111</li>
+</ul>
+<p><span style = "color : red">2号页</span> 的逻辑地址空间应该是 8192~12287，用二进制表示应该是:</p>
+<ul>
+<li><span style = "color : red">00000000000000000010</span><u>000000000000</u> ~ <span style = "color : red">00000000000000000010</span>111111111111</li>
+</ul>
+<p><code>Eg</code> ：逻辑地址 2，用二进制表示应该是 <span style = "color : red">00000000000000000000</span><u>000000000010</u></p>
+<ul>
+<li>若 0 号页在内存中的起始地址为  <code>X</code> ，则逻辑地址 2 对应的物理地址应该是 X+ <u>000000000010</u></li>
+</ul>
+<p><code>Eg</code> ：逻辑地址 4097，用二进制表示应该是 <span style = "color : red">00000000000000000001</span><u>000000000001</u></p>
+<ul>
+<li>若 1 号页在内存中的起始地址为  <code>X</code> ，则逻辑地址 4097 对应的物理地址应该是 X + <u>000000000001</u></li>
+</ul>
+<p>结论：如果每个页面大小为 2<sup>K</sup> B，用二进制数表示逻辑地址</p>
+<ul>
+<li>则末尾  <code>K</code>  位即为 <span style = "color : red">页内偏移量</span>，<strong>其余部分就是页号</strong></li>
+</ul>
+<hr />
+<h3 id="逻辑地址结构"><a class="anchor" href="#逻辑地址结构">#</a> 逻辑地址结构</h3>
+<p>分页存储管理的 <span style = "color : red">逻辑地址结构</span> 如下所示：</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209221819610.png" alt="image-20230209221819610" /></p>
+<p>地址结构包含两个部分：前一部分为页号，后一部分为页内偏移量  <code>W</code> 。</p>
+<p>在上图所示的例子中，地址长度为 32 位，</p>
+<ul>
+<li>其中 0 ~ 11 位为 “<span style = "color : red">页内偏移量</span>”，或称 “<span style = "color : red">页内地址</span> ”;</li>
+<li>12~31 位为 “<span style = "color : red">页号</span>”。</li>
+</ul>
+<p><span style = "color : red">如果有 K 位表示 “页内偏移量” ，则说明该系统中一个页面的大小是 2{% raw %}<sup>K</sup>{% endraw %} 个内存单元 &lt;/span&gt;</p>
+<p><span style = "color : red">如果有 M 位表示 “页号”，则说明在该系统中，一个进程最多允许有 2{% raw %}<sup>M</sup>{% endraw %} 个页面 &lt;/span&gt;</p>
+<hr />
+<p>分页存储管理中，如何实现地址转换？</p>
+<ol>
+<li>要算出逻辑地址对应的 <span style = "color : red">页号</span></li>
+<li>要知道该页号对应 <span style = "color : red">页面在内存中的起始地址</span></li>
+<li>要算出逻辑地址 <span style = "color : red">在页面内的 “偏移量”</span></li>
+<li><span style = "color : red">物理地址 = 页面始址＋页内偏移量</span></li>
+</ol>
+<p>若用十进制数表示逻辑地址，可以用：</p>
+<ul>
+<li>
+<p><span style = "color : red">页号</span> = 逻辑地址 / 页面长度（取除法的整数部分)</p>
+</li>
+<li>
+<p><span style = "color : red">页内偏移量</span> = 逻辑地址 % 页面长度（取除法的余数部分）</p>
+</li>
+</ul>
+<hr />
+<h3 id="页表-页表项"><a class="anchor" href="#页表-页表项">#</a> 页表、页表项</h3>
+<p>为了能知道进程的每个页面在内存中存放的位置，操作系统要 <span style = "color : red">为每个进程建立一张页表</span>。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209223124406.png" alt="image-20230209223124406" /></p>
+<p><span style = "color : red">每个页表项的长度是相同的，页号是 “隐含” 的</span></p>
+<p><code>Eg</code> ：假设某系统物理内存大小为 4GB，页面大小为 4KB，则每个<strong>页表项</strong>至少应该为多少字节？</p>
+<p>4GB = 2<sup>32</sup> B，4KB = 2<sup>12</sup> B</p>
+<p>因此 4GB 的内存总共会被分为 2<sup>32</sup>/ 2<sup>12</sup> = 2<sup>20</sup> 个内存块（页框），因此内存块号的范围应该是 0 ~ 2<sup>20</sup> - 1</p>
+<p>因此至少要 20 个二进制位才能表示这么多的内存块号，因此至少要 3 个字节才够</p>
+<ul>
+<li>每个字节 8 个二进制位，3 个字节共 24 个二进制位</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209231704773.png" alt="image-20230209231704773" /></p>
+<p>各页表项会 <span style = "color : red">按顺序连续地</span> 存放在内存中</p>
+<p>如果该页表在内存中存放的起始地址为  <code>X</code> ，</p>
+<p>则  <code>M</code>  号页对应的页表项一定是存放在内存地址为 X＋3 * M 。因此，页表中的 “页号” 可以是 “隐含” 的。</p>
+<p>只需要知道 <span style = "color : red">页表存放的起始地址</span> 和 <span style = "color : red">页表项长度</span>，即可找到各个页号对应的页表项存放的位置</p>
+<ul>
+<li>在本例中，一个页表项占 3B，如果进程由 n 个页面，则该进程的页表总共会占 3*n 个字节</li>
+</ul>
+<h3 id="整体框架-2"><a class="anchor" href="#整体框架-2">#</a> 整体框架</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209232412018.png" alt="image-20230209232412018" /></p>
+<h2 id="基本地址变换机构"><a class="anchor" href="#基本地址变换机构">#</a> 基本地址变换机构</h2>
+<p>用于实现逻辑地址到物理地址转换的一组硬件机构</p>
+<hr />
+<p>基本地址变换机构可以借助进程的页表将逻辑地址转换为物理地址。</p>
+<h3 id="页表寄存器ptr"><a class="anchor" href="#页表寄存器ptr">#</a> 页表寄存器（PTR）</h3>
+<p>通常会在系统中设置一个 <span style = "color : red">页表寄存器</span>（PTR），存放 <span style = "color : red">页表在内存中的起始地址 F </span> 和 <span style = "color : red">页表长度 M</span>。</p>
+<ul>
+<li><code>页表长度 M</code> ：<strong>这个进程当中有 M 个页表项（页面）</strong></li>
+</ul>
+<p>进程未执行时，页表的始址和页表长度 <span style = "color : red">放在进程控制块（PCB）中</span>，当进程被调度时，操作系统内核会把它们放到页表寄存器中。</p>
+<p>注意：<span style = "color : red">页面大小是2的整数幂</span></p>
+<h3 id="逻辑地址到物理地址的变换过程"><a class="anchor" href="#逻辑地址到物理地址的变换过程">#</a> 逻辑地址到物理地址的变换过程！</h3>
+<p>设页面大小为  <code>L</code>  ，逻辑地址  <code>A</code>  到物理地址  <code>E</code>  的变换过程如下:</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209233442364.png" alt="image-20230209233442364" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209234326417.png" alt="image-20230209234326417" /></p>
+<p>① 计算页号  <code>Р</code>  和页内偏移量  <code>w</code></p>
+<ul>
+<li>如果用十进制数手算，则  <code>P = A / L, W = A % L</code> ；但是在计算机实际运行时，逻辑地址结构是固定不变的，因此计算机硬件可以更快地得到二进制表示的页号、页内偏移量</li>
+</ul>
+<p>② 比较页号  <code>P</code>  和页表长度  <code>M</code> ，若 P &gt; M，则产生越界中断，否则继续执行。(注意：页号是从 0 开始的，而页表长度至少是 1 ，因此 P = M 时也会越界)</p>
+<p>③ 页表中页号  <code>P</code>  对应的 <span style = "color : red">页表项地址 = 页表起始地址 F + 页号 p * 页表项长度</span>，取出该页表项内容  <code>b</code> ，即为内存块号。</p>
+<ul>
+<li>页表项地址对应的映射为物理地址</li>
+</ul>
+<p>注意区分 <span style = "color : red">页表项长度、页表长度、页面大小的区别</span>。</p>
+<ul>
+<li><span style = "color : red">页表长度</span> 指的是这个页表中总共有几个页表项，即该<strong>进程总共有几个页面</strong>；</li>
+<li><span style = "color : red">页表项长度</span> 指的是每个页表项占多大的存储空间，相对于页表</li>
+<li><span style = "color : red">页面大小</span> 指的是一个页面占多大的存储空间，相对于进程</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210223856789.png" alt="image-20230210223856789" /></p>
+<p>④ 计算 物理地址  <code>E = b * L + W</code> ，期得到的物理地址  <code>E</code>  去访存。</p>
+<ul>
+<li>
+<p><code>b</code>  : 物理块号； <code>L</code>  ：<strong>页面大小</strong>（如上图所示）</p>
+</li>
+<li>
+<p>如果内存块号、页面偏移量是用二进制表示的，那么把二者拼接起来就是最终的物理地址了</p>
+</li>
+</ul>
+<p>上述为什么</p>
+<p>动手验证：假设页面大小  <code>L= 1KB</code> ，最终要访问的内存块号  <code>b = 2</code> ，页内偏移量  <code>W = 10231</code></p>
+<p>① 尝试用  <code>E= b * L + W</code>  计算目标物理地址。</p>
+<p>② 尝试把内存块号、页内偏移量用二进制表示，并把它们拼接起来得到物理地址。</p>
+<ul>
+<li>对比 ①② 的结果是否一致</li>
+</ul>
+<hr />
+<h3 id="例子"><a class="anchor" href="#例子">#</a> 例子</h3>
+<p>例：若页面大小  <code>L</code>  为  <code>1K</code>  字节，页号  <code>2</code>  对应的内存块号  <code>b = 8</code> ，将逻辑地址  <code>A = 2500</code>  转换为物理地址  <code>E</code>  。</p>
+<p><strong>等价描述</strong>：某系统 <span style = "color : red">按字节寻址</span>，逻辑地址结构中，<span style = "color : red">页内偏移量占 10 位</span>，页号  <code>2</code>  对应的内存块号  <code>b = 8</code> ，将逻辑地址  <code>A = 2500</code>  转换为物理地址  <code>E</code> 。</p>
+<ul>
+<li><span style = "color : red">页内偏移量占 10 位</span> ：说明一个页面的大小 ： 2<sup>10</sup> B = 1KB</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209221819610.png" alt="image-20230209221819610" /></p>
+<hr />
+<p>页面大小为 L ： <code>1K = 1024 B</code></p>
+<p>逻辑地址 A =  <code>2500</code> ：</p>
+<ul>
+<li>
+<p>所对应的<strong>页号</strong>：  <code>A / L = 2500 / 1024 = 2</code> （整除）</p>
+</li>
+<li>
+<p>所对应的<strong>页内偏移量</strong>： <code>A % L = 2500 % 1024 = 452</code></p>
+</li>
+</ul>
+<p>根据题中条件可知，页号 2 没有越界，其存放的内存块号  <code>b = 8</code></p>
+<p>页面（页框）始址 = 页面大小 * 内存块号 =  <code>L * b = 8 K = 8192 B</code></p>
+<p>物理地址  <code>E</code>  = 页面始址 + 偏移量 =  <code>8192 B + 452 = 8644</code></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210223853475.png" alt="image-20230210223853475" /></p>
+<p><strong>注：</strong><span style = "color : red">最好记住该图, 可以更方便的理解</span></p>
+<hr />
+<p>在分页存储管理（页式管理）的系统中，只要确定了每个页面的大小，逻辑地址结构就确定了。</p>
+<p>因此，<span style = "color : red">页式管理中地址是一维的</span>。</p>
+<ul>
+<li>即，<strong>只要给出一个逻辑地址</strong>，系统就可以自动地算出页号、页内偏移量两个部分，并不需要显式地告诉系统这个逻辑地址中，页内偏移量占多少位。</li>
+</ul>
+<hr />
+<h3 id="页表项大小的进一步探讨"><a class="anchor" href="#页表项大小的进一步探讨">#</a> 页表项大小的进一步探讨</h3>
+<p><span style = "color : red">每个页表项的长度是相同的，页号是 “隐含” 的</span></p>
+<p><code>Eg</code> ：假设某系统物理内存大小为 4GB，页面大小为 4KB，则每个<strong>页表项</strong>至少应该为多少字节？</p>
+<p>4GB = 2<sup>32</sup> B，4KB = 2<sup>12</sup> B</p>
+<p>因此 4GB 的内存总共会被分为 2<sup>32</sup>/ 2<sup>12</sup> = 2<sup>20</sup> 个内存块（页框），因此内存块号的范围应该是 0 ~ 2<sup>20</sup> - 1</p>
+<p>因此至少要 20 个二进制位才能表示这么多的内存块号，因此至少要 3 个字节才够</p>
+<ul>
+<li>每个字节 8 个二进制位，3 个字节共 24 个二进制位</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209231704773.png" alt="image-20230209231704773" /></p>
+<p>各页表项会 <span style = "color : red">按顺序连续地</span> 存放在内存中</p>
+<p>如果该页表在内存中存放的起始地址为  <code>X</code> ，</p>
+<p>则  <code>M</code>  号页对应的页表项一定是存放在内存地址为 X＋3 * M</p>
+<hr />
+<p>一个页面为 4 KB ，则<strong>每个页框</strong>可以存放 4096 / 3 = 1365 个页表项，但是这个页框会剩余 4096 % 3=1B <strong>页内碎片</strong></p>
+<p>因此，1365 号页表项存放的  地址为 X＋3 * 1365 + 1</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210011436662.png" alt="image-20230210011436662" /></p>
+<p>如果 <span style = "color : red">每个页表项占 4 字节</span>，则每个页框刚好可存放 1024 个页表项</p>
+<p>1024 号页表项虽然是存放在下一个页框中的，但是它的地址依然可以用 X + 4 * 1024 得出</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210011938051.png" alt="image-20230210011938051" /></p>
+<p><span style = "color : red">结论</span>：理论上，页表项长度为 3B 即可表示内存块号的范围，但是，为了方便页表的查询，常常会让一个页表项占更多的字节，使得 <span style = "color : red">每个页面恰好可以装得下整数个页表项</span>。</p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210224212290.png" alt="image-20230210224212290" /></p>
+<hr />
+<h3 id="图形记忆"><a class="anchor" href="#图形记忆">#</a> 图形记忆！</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230209234326417.png" alt="image-20230209234326417" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210223847903.png" alt="image-20230210223847903" /></p>
+<p><strong>进程页表</strong>通常是 <span style = "color : red">装在连续的内存块中</span> 的</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210224153243.png" alt="image-20230210224153243" /></p>
+<p><strong>注：</strong><span style = "color : red">最好记住这 2 图, 可以更方便的理解</span></p>
+<hr />
+<p><span style = "color : red">其实就是先从内存找到页表，再从页表中获取页号对应物理地址，再根据物理地址从内存中访问相应的数据</span></p>
+<h3 id="整体框架-3"><a class="anchor" href="#整体框架-3">#</a> 整体框架</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210013329935.png" alt="image-20230210013329935" /></p>
+<p>第一次访问内存：<strong>查页表</strong></p>
+<p>第二次访问内存：<strong>访问目标内存单元</strong></p>
+<h2 id="具有快表的地址变换机构"><a class="anchor" href="#具有快表的地址变换机构">#</a> 具有快表的地址变换机构</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210235926244.png" alt="image-20230210235926244" /></p>
+<h4 id="局部性原理时间空间"><a class="anchor" href="#局部性原理时间空间">#</a> 局部性原理（时间 / 空间）</h4>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210232343404.png" alt="image-20230210232343404" /></p>
+<p><span style = "color : red">时间局部性</span>：如果执行了程序中的某条指令，那么不久后这条指令很有可能再次执行；如果某个数据被访问过，不久之后该数据很可能再次被访问。(因为程序中存在大量的循环)</p>
+<p><span style = "color : red">空间局部性</span>：一旦程序访问了某个存储单元，在不久之后，其附近的存储单元也很有可能被访问。（因为很多数据在内存中都是连续存放的)</p>
+<p>上小节介绍的 <span style = "color : red">基本地址变换机构</span> 中，每次要访问一个逻辑地址，都需要 <span style = "color : red">查询内存中的页表</span>。由于局部性原理，<span style = "color : red">可能连续很多次查到的都是同一个页表项</span>。既然如此，<strong>能否利用这个特性减少访问页表的次数呢？</strong></p>
+<ul>
+<li>例如：每次获取物理地址都需要页面始址，每次都需要从页表中获取相应的物理块号，再根据物理块号获取页面始址</li>
+</ul>
+<hr />
+<h3 id="什么是快表相联寄存器tlb"><a class="anchor" href="#什么是快表相联寄存器tlb">#</a> 什么是快表（相联寄存器）（TLB）</h3>
+<p><span style = "color : red">快表</span>，又称 <span style = "color : red">相联寄存器（TLB）</span>，是一种 <span style = "color : red">访问速度比内存快很多</span> 的高速缓冲存储器，用来存放当前访问的若干页表项，以加速地址变换的过程。与此对应，<strong>内存中的页表</strong>常称为 <span style = "color : red">慢表</span>。</p>
+<hr />
+<p>程序计数器  <code>PC</code> ：存放下一条指令的逻辑地址</p>
+<p>系统查询到页表项后，会将该页表项自动地复制到快表中</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210233939098.png" alt="image-20230210233939098" /></p>
+<p>即：<strong>若快表命中就不需要再访问内存了</strong></p>
+<p>快表中存放的是页表中的一部分副本</p>
+<hr />
+<h3 id="引入快表后地址的变换过程"><a class="anchor" href="#引入快表后地址的变换过程">#</a> 引入快表后，地址的变换过程</h3>
+<p>①  <code>CPU</code>  给出逻辑地址，由某个硬件算得页号、页内偏移量，将页号与快表中的所有页号进行比较。</p>
+<p>② 如果找到匹配的页号，说明要访问的页表项在快表中有副本，则直接从中取出该页对应的内存块号，再将内存块号与页内偏移量拼接形成物理地址，最后，<span style = "color : red">访问</span> 该物理地址对应的 <span style = "color : red">内存单元</span>。因此，<span style = "color : red">若快表命中</span>，则访问某个逻辑地址仅需 <span style = "color : red">一次访存</span> 即可。</p>
+<p>③ 如果没有找到匹配的页号，则需要 <span style = "color : red">访问内存中的页表</span>，找到对应页表项，得到页面存放的内存块号，再将内存块号与页内偏移量拼接形成物理地址，最后，<span style = "color : red">访问</span> 该物理地址对应的 <span style = "color : red">内存单元</span>。因此，若 <span style = "color : red">快表未命中</span>，则访问某个逻辑地址需要 <span style = "color : red">两次访存</span>（<span style = "color : red">注意：在找到页表项后，应同时将其存入快表</span>，以便后面可能的再次访问。但若快表已满，则必须按照<strong>一定的算法</strong>对旧的页表项进行替换)</p>
+<hr />
+<p>由于查询快表的速度比查询页表的速度快很多，因此只要快表命中，就可以节省很多时间因为局部性原理，一般来说快表的命中率可以达到 90% 以上。</p>
+<hr />
+<p>例：某系统使用基本分页存储管理，并采用了具有快表的地址变换机构。访问一次快表耗时 1us，访问一次内存耗时 100us 。若快表的命中率为 90% ，那么访问一个逻辑地址的平均耗时是多少？</p>
+<p>(1 + 100)  * 0.9 + (<span style = "color : red">1</span> + 100 + 100) * 0.1 = <span style = "color : red">111 us</span>  （默认）</p>
+<ul>
+<li>因为根据页号获取到物理块号后，还需要访问一次内存单元</li>
+</ul>
+<p>有的系统支持<strong>快表和慢表同时查找</strong>，如果是这样，平均耗时应该是 (1+100) * 0.9 +(100+100) * 0.1 = <span style = "color : red">110.9 us</span></p>
+<ul>
+<li>如何快表查询成功了，就停止慢表的查询操作</li>
+</ul>
+<p>若未采用快表机制，则访问一个逻辑地址需要 <span style = "color : red">100 + 100 = 200 us</span></p>
+<hr />
+<h3 id="总结"><a class="anchor" href="#总结">#</a> 总结</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>地址变换过程</th>
+<th>访问一个逻辑地址的访问次数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基本地址变换机构</td>
+<td>① 算页号、页内偏移量 <br/>② 检查页号合法性 <br/>③ 查页表，找到页面存放的内存块号 <br/>④ 根据内存块号与页内偏移量得到物理地址 <br/>⑤ 访问目标内存单元</td>
+<td><span style = "color : red">两次访存</span></td>
+</tr>
+<tr>
+<td>具有快表的地址变换机构</td>
+<td>① 算页号、页内偏移量②检查页号合法性 <br/>③ 查快表。<br/> 若命中，即可知道页面存放的内存块号，可直接进行 ⑤ <br/> 若未命中则进行 ④<br/>④ 查页表，找到页面存放的内存块号，并且将页表项复制到快表中 <br/>⑤ 根据内存块号与页内偏移量得到物理地址 <br/>⑥ 访问目标内存单元</td>
+<td>快表 <span style = "color : red">命中</span>，只需 <span style = "color : red">一次访存</span><br/> 快表 <span style = "color : red">未命中</span>，需要 <span style = "color : red">两次访存</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="两级页表"><a class="anchor" href="#两级页表">#</a> 两级页表</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211000029813.png" alt="image-20230211000029813" /></p>
+<hr />
+<h3 id="单级页表存在的问题"><a class="anchor" href="#单级页表存在的问题">#</a> 单级页表存在的问题</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210223847903.png" alt="image-20230210223847903" /></p>
+<p>某计算机系统按字节寻址，支持 32 位的逻辑地址，采用分页存储管理，页面大小为 4 KB ，页表项长度为 4 B 。</p>
+<p>4 KB= 2<sup>12</sup> B，因此<strong>页内地址</strong>（页内偏移量）要用 12 位表示，剩余 20 位表示页号。</p>
+<p>因此，该系统中用户进程最多有 2<sup>20</sup> 页。相应的，一个进程的页表中，最多会有 2<sup>20</sup> = 1 M= 1,048,576 个<strong>页表项</strong>，所以一个页表最大需要 2<sup>20</sup> * 4 B= 2<sup>22</sup> B，共需要 2<sup>22</sup> / 2<sup>12</sup>= 2<sup>10</sup> 个<strong>页框</strong>存储该页表。</p>
+<ul>
+<li>页框个数 = 页表大小 / 页面大小</li>
+<li>页表大小 = 页表项个数 * 页表项长度</li>
+</ul>
+<p>根据页号查询页表的方法：K 号页对应的页表项存放位置 = 页表始址＋K * 4</p>
+<p><span style = "color : red">要在所有的页表项都连续存放</span> 的基础上才能用这种方法找到页表项</p>
+<p><strong>问题 ①</strong> ：上述需要专门给进程分配 2<sup>10</sup> = <u>1024 个连续的页框</u> 来存放它的页表</p>
+<p><strong>问题 ②</strong> ：根据局部性原理可知，很多时候，<span style = "color : red">进程在一段时间内只需要访问某几个页面就可以正常运行了</span>。</p>
+<ul>
+<li>因此 <span style = "color : red">没有必要让整个页表都常驻内存</span>。</li>
+</ul>
+<hr />
+<h3 id="如何解决单级页表的问题问题一页目录表"><a class="anchor" href="#如何解决单级页表的问题问题一页目录表">#</a> 如何解决单级页表的问题？问题一（页目录表）</h3>
+<p><span style = "color : red">问题一：页表必须连续存放，因此当页表很大时，需要占用很多个连续的页框。</span></p>
+<p>问题二：没有必要让整个页表常驻内存，因为进程在一段时间内可能只需要访问某几个特定的页面。</p>
+<hr />
+<p>思考：我们是如何解决进程在内存中必须连续存储的问题的？</p>
+<ul>
+<li>将进程地址空间分页，并为其建立一张页表，记录各页面的存放位置</li>
+</ul>
+<p>同样的思路也可用于解决 “页表必须连续存放” 的问题，把必须连续存放的页表再分页</p>
+<hr />
+<p><span style = "color : red">可将长长的页表进行分组，使每个内存块刚好可以放入一个分组</span></p>
+<ul>
+<li>比如上个例子中，页面大小 4KB，每个页表项 4B，每个页面（页框）可存放 1K 个页表项，</li>
+<li>因此每 1K 个连续的页表项为一组，每组刚好占一个内存块，再讲各组离散地放到各个内存块中</li>
+</ul>
+<p>另外，要为离散分配的页表再建立一张页表，称为 <span style = "color : red">页目录表</span>，或称 <span style = "color : red">外层页表</span>，或称 <span style = "color : red">顶层页表</span></p>
+<hr />
+<h3 id="两级页表的原理-地址结构"><a class="anchor" href="#两级页表的原理-地址结构">#</a> 两级页表的原理、地址结构</h3>
+<p>32 位逻辑地址空间，页表项大小为 4 B，页面大小为 4 KB，则页内地址占 12 位</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211004211465.png" alt="image-20230211004211465" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211004325843.png" alt="image-20230211004325843" /></p>
+<hr />
+<p>如下所示：内存块号  <code>3</code>  存储的是 0# 页表的所有页表项</p>
+<p><strong>就是将页表分组，根据页目录表找相应的几号页表，再根据页号找该页表中的页表项对应的物理块号</strong></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211005004910.png" alt="image-20230211005004910" /></p>
+<hr />
+<h3 id="如何实现地址变换"><a class="anchor" href="#如何实现地址变换">#</a> 如何实现地址变换？</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211005432833.png" alt="image-20230211005432833" /></p>
+<h3 id="如何解决单级页表的问题问题二-缺页中断"><a class="anchor" href="#如何解决单级页表的问题问题二-缺页中断">#</a> 如何解决单级页表的问题？问题二 （缺页中断）</h3>
+<p>问题一：页表必须连续存放，因此当页表很大时，需要占用很多个连续的页框。</p>
+<p><span style = "color : red">问题二：没有必要让整个页表常驻内存，因为进程在一段时间内可能只需要访问某几个特定的页面。</span></p>
+<hr />
+<p>可以在需要访问页面时才把页面调入内存（<strong>虚拟存储技术</strong>）。</p>
+<ul>
+<li>可以在页表项中增加一个<strong>标志位</strong>，用于表示该页面是否已经调入内存</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211005848270.png" alt="image-20230211005848270" /></p>
+<p>缺页中断肯定是在执行某一条指令，想访问某一个暂时还没有调入页面的时候产生的</p>
+<ul>
+<li>所以这个中断信号和当前执行的指令有关，因此这种中断是属于内中断</li>
+</ul>
+<h3 id="需要注意的几个细节"><a class="anchor" href="#需要注意的几个细节">#</a> 需要注意的几个细节 ！</h3>
+<p>① 若采用多级页表机制，则 <span style = "color : red">各级页表的大小不能超过一个页面（页框）</span></p>
+<p><strong>例</strong>：某系统按字节编址，采用 40 位逻辑地址，页面大小为 4 KB，页表项大小为 4 B，假设采用纯页式存储，则要采用（）级页表，页内偏移量为（）位？</p>
+<p>页面大小 = 4 KB = 2<sup>12</sup> B，按字节编址，因此页内偏移量为 12 位</p>
+<p>页号 = 40 - 12= 28 位</p>
+<p>页面大小 = 2<sup>12</sup> B，页表项大小 = 4 B，则每个页面（页框，因为这是分页存储）可存放 2<sup>12</sup> / 4 = 2<sup>10</sup> 个页表项</p>
+<p>因此各级页表最多包含 2<sup>10</sup> 个页表项，需要 10 位二进制位才能映射到 2<sup>10</sup> 个页表项，因此每一级的页表对应页号应为 10 位。总共 28 位的页号至少要分为三级</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211010808958.png" alt="image-20230211010808958" /></p>
+<p>如果只分为两级页表，则一级页号占 18 位，也就是说页目录表中最多可能有 2<sup>18</sup> 个页表项</p>
+<p>显然，一个页面是放不下这么多页表项的。</p>
+<hr />
+<p>② 两级页表的 <span style = "color : red">访存次数</span> 分析（假设没有快表机构）</p>
+<ul>
+<li>第一次访存：访问内存中的页目录表</li>
+<li>第二次访存：访问内存中的二级页表</li>
+<li>第三次访存：访问目标内存单元</li>
+</ul>
+<h3 id="整体框架-4"><a class="anchor" href="#整体框架-4">#</a> 整体框架</h3>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211013008639.png" alt="image-20230211013008639" /></p>
+<h1 id="基本分段存储方式"><a class="anchor" href="#基本分段存储方式">#</a> 基本分段存储方式</h1>
+<p>与 “分页” 最大的区别就是――离散分配时所分配地址空间的基本单位不同</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211204221555.png" alt="image-20230211204221555" /></p>
+<hr />
+<h2 id="分段"><a class="anchor" href="#分段">#</a> 分段</h2>
+<p>进程的地址空间：按照程序 <span style = "color : red">自身的逻辑</span> 关系 <span style = "color : red">划分为若干个段</span>，每个段都有一个<strong>段名</strong>（在低级语言中，程序员使用段名来编程)，<span style = "color : red">每段从 0 开始编址</span></p>
+<p>内存分配规则：以段为单位进行分配，<span style = "color : red">每个段在内存中占据连续空间</span>，但 <span style = "color : red">各段之间可以不相邻</span>。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211205639514.png" alt="image-20230211205639514" /></p>
+<p>由于是按逻辑功能模块划分，用户 <span style = "color : red">编程更方便，程序的可读性更高</span></p>
+<pre><code>LOAD 1,[D] |&lt;A&gt;;	//将分段 D 中 A 单元内的值读入寄存器 1
+STORE1,[X] |&lt;B&gt;;	//将寄存器 1 的内容存入 X 分段的 B 单元中
+</code></pre>
+<p><strong>编译程序会将段名转换为段号</strong></p>
+<hr />
+<p>分段系统的逻辑地址结构由段号（段名）和段内地址（<strong>段内偏移量</strong>）所组成。如:</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211213103515.png" alt="image-20230211213103515" /></p>
+<p><span style = "color : red">段号的位数决定了每个进程最多可以分几个段</span></p>
+<p><span style = "color : red">段内地址位数决定了每个段的最大长度是多少</span></p>
+<hr />
+<p>在上述例子中，若系统是按字节寻址的，则</p>
+<p>段号占 16 位，因此在该系统中，每个进程最多有 2<sup>16 </sup>= 64 K 个段段内地址占 16 位，</p>
+<ul>
+<li>因此每个段的最大长度是 2<sup>16 </sup>= 64 KB。</li>
+</ul>
+<pre><code>LOAD 1,[D] |&lt;A&gt;;	//将分段 D 中 A 单元内的值读入寄存器 1
+STORE1,[X] |&lt;B&gt;;	//将寄存器 1 的内容存入 X 分段的 B 单元中
+</code></pre>
+<p>写程序时使用的段名  <code>[D]</code> 、 <code>[X]</code>  会被编译程序翻译成对应短号</p>
+<p><code>&lt;A&gt; </code>  单元、 <code>&lt;B&gt;</code>  单元会被编译程序翻译成段内地址</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211213959521.png" alt="image-20230211213959521" /></p>
+<hr />
+<h2 id="段表"><a class="anchor" href="#段表">#</a> 段表</h2>
+<p>问题：程序分多个段，各段离散地装入内存，为了保证程序能正常运行，<strong>就必须能从物理内存中找到各个逻辑段的存放位置</strong>。为此，需为每个进程建立一张段映射表，简称 “<span style = "color : red">段表</span>”。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211223237764.png" alt="image-20230211223237764" /></p>
+<p>① 每个段对应一个段表项，其中记录了该段在内存中的 <span style = "color : red">起始位置</span>（又称 “<span style = "color : red">基址</span>” ）和 <span style = "color : red">段的长度</span>。</p>
+<p>② <span style = "color : red">各个段表项的长度是相同的</span> 。</p>
+<p>例如：某系统按字节寻址，采用分段存储管理，逻辑地址结构为（段号 16 位，段内地址 16 位），因此用 16 位即可表示最大段长。物理内存大小为 4GB（可用 32 位表示整个物理内存地址空间）。</p>
+<ul>
+<li>因此，可以让每个段表项占 16 + 32= 48 位，即 6B。
+<ul>
+<li><strong>因为段表项要记录段长（最大 16 位） 和基址（最大 32 位），所以是 48 位</strong></li>
+<li>物理内存为 4 GB，也就是基址的范围为 0 ~ 2<sup>32</sup> 位</li>
+</ul>
+</li>
+<li>由于段表项长度相同，因此 <span style = "color : red">段号可以是隐含的，不占存储空间</span>。若段表存放的起始地址为 M，则 K 号段对应的段表项存放的地址为 M + K * 6</li>
+</ul>
+<h2 id="地址变换"><a class="anchor" href="#地址变换">#</a> 地址变换</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211223642005.png" alt="image-20230211223642005" /></p>
+<pre><code>LOAD 1,[D] |&lt;A&gt;;	//将分段 D 中 A 单元内的值读入寄存器 1
+</code></pre>
+<p>经过编译程序编译后，形成等价的机器指令:</p>
+<p>“取出段号为 2，段内地址为 1024 的内存单元中的内容，放到寄存器 1 中”</p>
+<p>机器指令中的逻辑地址用二进制表示：<span style = "color : red">0000000000000010</span>0000001000000000</p>
+<ul>
+<li><code>CPU</code>  执行指令时需要将逻辑地址变换为物理地址</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211223931986.png" alt="image-20230211223931986" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211224418385.png" alt="image-20230211224418385" /></p>
+<p><strong>和页面的最大区别是，每个段的长度是不同的</strong></p>
+<ul>
+<li>所以对于步骤 ④，在分页管理中并不需要对页内偏移量（页内地址）进行越界检查，但在分段管理中需要对段内偏移量（段内地址）与段长进行越界检查</li>
+</ul>
+<hr />
+<h2 id="分段-分页管理的对比"><a class="anchor" href="#分段-分页管理的对比">#</a> 分段、分页管理的对比</h2>
+<p><span style = "color : red">页</span> 是 <span style = "color : red">信息的物理单位</span>。分页的主要目的是为了实现离散分配，提高内存利用率。分页仅仅是系统管理上的需要，完全是系统行为，<span style = "color : red">对用户是不可见的，即对用户是透明的</span>。</p>
+<p><span style = "color : red">段</span> 是 <span style = "color : red">信息的逻辑单位</span>。分段的主要目的是更好地满足用户需求。一个段通常包含着一组属于一个逻辑模块的信息。<span style = "color : red">分段对用户是可见的</span>，用户编程时需要显式地给出段名。</p>
+<p>页的大小固定且由系统决定。段的长度却不固定，决定于用户编写的程序。</p>
+<p><span style = "color : red">分页</span> 的用户进程 <span style = "color : red">地址空间是一维的</span>，程序员只需给出一个记忆符即可表示一个地址。</p>
+<p><span style = "color : red">分段</span> 的用户进程 <span style = "color : red">地址空间是二维的</span>，程序员在标识一个地址时，既要给出段名，也要给出段内地址。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211225151319.png" alt="image-20230211225151319" /></p>
+<hr />
+<p><span style = "color : red">分段</span> 比分页 <span style = "color : red">更容易实现信息的共享和保护</span>。</p>
+<p>不能被修改的代码称为 <span style = "color : red">纯代码</span> 或 <span style = "color : red">可重入代码</span>（不属于临界资源)，这样的代码是可以<strong>共享</strong>的。可修改的代码是不能共享的（比如，有一个代码段中有很多变量，各进程并发地同时访问可能造成数据不一致）</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211225518946.png" alt="image-20230211225518946" /></p>
+<p><strong>若用分页的话，很难实现</strong>。用户不知道内部是怎么划分的，共享的代码可能会更不共享的数据存放在同一个页面上，因此这个页面只有一部分是允许其他进程访问的，而另一部分不允许其他进程访问</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211230234056.png" alt="image-20230211230234056" /></p>
+<hr />
+<p>访问一个逻辑地址需要几次访存？</p>
+<p><span style = "color : red">分页（单级页表)</span>：第一次访存――查内存中的页表，第二次访存――访问目标内存单元。总共 <span style = "color : red">两次访存</span></p>
+<p><span style = "color : red">分段</span>：第一次访存――查内存中的段表，第二次访存――访问目标内存单元。总共 <span style = "color : red">两次访存</span></p>
+<p>与分页系统类似，分段系统中也 <span style = "color : red">可以引入<b>快表</b>机构</span>，将近期访问过的段表项放到快表中，这样 <span style = "color : red">可以少一次访问</span>，加快地址变换速度。</p>
+<h2 id="整体框架-5"><a class="anchor" href="#整体框架-5">#</a> 整体框架</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211232045181.png" alt="image-20230211232045181" /></p>
+<h1 id="段页式管理方式"><a class="anchor" href="#段页式管理方式">#</a> 段页式管理方式</h1>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211232211200.png" alt="image-20230211232211200" /></p>
+<h2 id="分页-分段的优缺点分析"><a class="anchor" href="#分页-分段的优缺点分析">#</a> 分页、分段的优缺点分析</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分页管理</td>
+<td>内存利空间利用率高，<span style = "color : red">不会产生外部碎片</span>，只会有少量的页内碎片</td>
+<td>不方便按照逻辑模块实现信息的共享和保护</td>
+</tr>
+<tr>
+<td>分段管理</td>
+<td>很方便按照逻辑模块实现的共享保护</td>
+<td>若段过大，为其分配很大的连续空间会很不方便。另外，段式管理 <span style = "color : red">会产生外部碎片</span></td>
+</tr>
+</tbody>
+</table>
+<p>分段管理中产生的外部碎片也可以用 “紧凑” 来解决，只是需要付出较大的时间代价</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211233134504.png" alt="image-20230211233134504" /></p>
+<hr />
+<h2 id="段页式管理"><a class="anchor" href="#段页式管理">#</a> 段页式管理</h2>
+<p>将进程按逻辑模块分段，再将各段分页（如每个页面 4 KB）</p>
+<p>再将内存空间分为大小相同的内存块 / 页框 / 页帧 / 物理块</p>
+<p>进程前将各页面分别装入各内存块中</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211233325189.png" alt="image-20230211233325189" /></p>
+<hr />
+<h2 id="段页式管理的逻辑地址结构"><a class="anchor" href="#段页式管理的逻辑地址结构">#</a> 段页式管理的逻辑地址结构</h2>
+<p><strong>分段系统</strong>的逻辑地址结构由段号和段内地址（段内偏移量）组成。如:</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211233446545.png" alt="image-20230211233446545" /></p>
+<p><strong>段页式系统</strong>的逻辑地址结构由段号、页号、页内地址（页内偏移量）组成。如:</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211233508321.png" alt="image-20230211233508321" /></p>
+<ul>
+<li>类似于<strong>二级页表</strong></li>
+</ul>
+<p><span style = "color : red">段号的位数决定了每个进程最多可以分几个段</span></p>
+<p><span style = "color : red">页号位数决定了每个段最大有多少页</span></p>
+<p><span style = "color : red">页内偏移量决定了页面大小、内存块大小是多少</span></p>
+<hr />
+<p>在上述例子中，若系统是按字节寻址的，则</p>
+<p>段号占 16 位，因此在该系统中，每个进程最多有 2<sup>16</sup> = 64 K 个段</p>
+<p>页号占 4 位，因此每个段最多有 2<sup>4</sup> = 16 页</p>
+<p>页内偏移量占 12 位，因此每个页面 \ 每个内存块大小为 2<sup>12</sup> = 4096 = 4 KB</p>
+<hr />
+<p><strong>&quot; 分段” 对用户是可见的，程序员编程时需要显式地给出段号、段内地址。</strong></p>
+<p><strong>而将各段 “分页” 对用户是不可见的。</strong></p>
+<p><strong>系统会根据段内地址自动划分页号和页内偏移量。</strong></p>
+<p>因此 <span style = "color : red">段页式</span> 管理的 <span style = "color : red">地址结构是二维的</span>。</p>
+<hr />
+<h2 id="段表-页表"><a class="anchor" href="#段表-页表">#</a> 段表、页表</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211234721831.png" alt="image-20230211234721831" /></p>
+<p><strong>就是把二级页表中的页目录表换成了段表</strong></p>
+<p>如下所示的二级页表</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230211005004910.png" alt="image-20230211005004910" /></p>
+<hr />
+<p><strong>一个进程对应一个段表，一个段表可能对应多个页表，即：一个进程可能会对应多个页表</strong></p>
+<h2 id="地址变换-2"><a class="anchor" href="#地址变换-2">#</a> 地址变换</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212001113985.png" alt="image-20230212001113985" /></p>
+<p><span style = "color : red">也可以引入快表机构，用段号和页号作为查询快表的关键字。若快表命中则仅需一次访存</span></p>
+<ul>
+<li>知道了段号可以查询相应页号，知道了页号可以查询相应物理块号，知道了物理块号可以查询相应内存单元</li>
+</ul>
+<p>在步骤 ④ 中，需要检查页号是否越界，更段式存储类似，因为<strong>每个段的长度可能是不相等的</strong>，存放的页表长度也可能不相等。</p>
+<ul>
+<li>因此需要这样的合法性检查</li>
+</ul>
+<h2 id="整体框架-6"><a class="anchor" href="#整体框架-6">#</a> 整体框架</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212011051568.png" alt="image-20230212011051568" /></p>
+<h1 id="虚拟内存的基本概念"><a class="anchor" href="#虚拟内存的基本概念">#</a> 虚拟内存的基本概念</h1>
+<p>在<strong>传统存储管理方式</strong>的基础上引入了交换技术、覆盖技术，使得内存利用率有所提升，并且能从逻辑上扩充内存容量。</p>
+<p>虚拟存储技术比之前的交换技术和覆盖技术更先进一些</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212011512982.png" alt="image-20230212011512982" /></p>
+<h2 id="传统存储管理方式的特征-缺点"><a class="anchor" href="#传统存储管理方式的特征-缺点">#</a> 传统存储管理方式的特征、缺点</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212011748664.png" alt="image-20230212011748664" /></p>
+<p><span style = "color : red">一次性</span>：<span style = "color : red">作业必须一次性全部装入内存后才能开始运行</span>。这会造成两个问题：</p>
+<p>① 作业很大时，不能全部装入内存，导致 <span style = "color : red">大作业无法运行</span>；</p>
+<ul>
+<li>例如：4 GB 大小的内存是不可能运行 64 GB 大小的游戏的</li>
+</ul>
+<p>② 当大量作业要求运行时，由于内存无法容纳所有作业，因此只有<strong>少量作业能运行</strong>，导致 <span style = "color : red">多道程序并发度下降</span>。</p>
+<p><span style = "color : red">驻留性</span>：一旦作业被装入内存，就会 <span style = "color : red">一直驻留在内存</span> 中，直至作业运行结束。</p>
+<ul>
+<li>
+<p>事实上，在一个时间段内，只需要访问作业的一小部分数据即可正常运行，<strong>这就导致了内存中会驻留大量的、暂时用不到的数据，浪费了宝贵的内存资源。</strong></p>
+</li>
+<li>
+<p>例如：正在游戏中的  <code>A</code>  场景， <code>B</code>  场景的资源并不需要加载到内存当中，只需要加载  <code>A</code>  场景需要的资源，就可以保证游戏的正常运行了。</p>
+<p>若采用传统的话，不管是  <code>A</code>  场景还是  <code>B</code>  场景中的数据都要求一直驻留在内存当中，无论此时是否需要这些数据</p>
+</li>
+</ul>
+<hr />
+<p>可以用虚拟存储技术解决</p>
+<h2 id="局部性原理高速缓冲技术思想"><a class="anchor" href="#局部性原理高速缓冲技术思想">#</a> 局部性原理（高速缓冲技术思想）</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230210232343404.png" alt="image-20230210232343404" /></p>
+<p><span style = "color : red">时间局部性</span>：如果执行了程序中的某条指令，那么不久后这条指令很有可能再次执行；如果某个数据被访问过，不久之后该数据很可能再次被访问。(因为程序中存在大量的循环)</p>
+<p><span style = "color : red">空间局部性</span>：一旦程序访问了某个存储单元，在不久之后，其附近的存储单元也很有可能被访问。（因为很多数据在内存中都是连续存放的)</p>
+<p>例如：之前介绍的 <span style = "color : red">基本地址变换机构</span> 中，每次要访问一个逻辑地址，都需要 <span style = "color : red">查询内存中的页表</span>。由于局部性原理，<span style = "color : red">可能连续很多次查到的都是同一个页表项</span>。</p>
+<hr />
+<p><span style = "color : red">高速缓冲技术</span> 的思想：将近期会频繁访问到的数据放到更高速的存储器中，暂时用不到的数据放在更低速存储器中。</p>
+<ul>
+<li>例如：<strong>之前所说的快表机构，就是将近期常访问的页表项副本放到更高速的联想寄存器中</strong></li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212231114696.png" alt="image-20230212231114696" /></p>
+<p>例如：书包与书架，为了避免频繁的从书架上取相同的书籍，可以把需要经常访问的书籍放到书包里，只需通过访问书包获取即可</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212231555063.png" alt="image-20230212231555063" /></p>
+<h2 id="虚拟内存的定义和特征"><a class="anchor" href="#虚拟内存的定义和特征">#</a> 虚拟内存的定义和特征</h2>
+<h3 id="定义"><a class="anchor" href="#定义">#</a> 定义</h3>
+<p>基于局部性原理，在程序装入时，可以将程序中 <span style = "color : red">很快会用到的部分装入内存，暂时用不到的部分留在外存</span>，就可以让程序开始执行。</p>
+<p>在程序执行过程中，当所访问的 <span style = "color : red">信息不在内存</span> 时，由 <span style = "color : red">操作系统负责将所需信息从外存调入内存</span>，然后继续执行程序。</p>
+<p>若内存空间不够，由 <span style = "color : red">操作系统负责</span> 将内存中 <span style = "color : red">暂时用不到的信息换出到外存</span>。</p>
+<ul>
+<li><strong>交换技术是将整个进程换出内存至对换区，虚拟存储是将部分信息（页，段）换出内存</strong></li>
+</ul>
+<p>在操作系统的管理下，在用户看来似乎有一个比实际内存大得多的内存，这就是 <span style = "color : red">虚拟内存</span></p>
+<ul>
+<li>操作系统虚拟性的一个体现，实际的物理内存大小没有变，只是在逻辑上进行了扩充。</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212231114696.png" alt="image-20230212231114696" /></p>
+<p><span style = "color : red">易混知识点</span>:</p>
+<p>虚拟内存的 <span style = "color : red">最大容量</span> 是由计算机的地址结构（ <code>CPU</code>  寻址范围）确定的</p>
+<p>虚拟内存的 <span style = "color : red">实际容量</span> = min（内存和外存容量之和， <code>CPU</code>  寻址范围）</p>
+<ul>
+<li>
+<p>如 ：某计算机地址结构为 32 位，按字节编址，内存大小为 512 MB，外存大小为 2 GB</p>
+</li>
+<li>
+<p>则虚拟内存的 <span style = "color : red">最大容量</span> 为 2<sup>32</sup> B =  4 GB</p>
+</li>
+<li>
+<p>虚拟内存的 <span style = "color : red">实际容量</span> = min（2<sup>32</sup> B，512 MB + 2 GB）= 512 MB + 2 GB</p>
+</li>
+</ul>
+<hr />
+<h3 id="特征"><a class="anchor" href="#特征">#</a> 特征</h3>
+<p>虚拟内存有一下三个主要特征:</p>
+<p><span style = "color : red">多次性</span>：无需在作业运行时一次性全部装入内存，而是允许被分成多次调入内存。</p>
+<p><span style = "color : red">对换性</span>：在作业运行时无需一直常驻内存，而是允许在作业运行过程中，将作业换入、换出。</p>
+<p><span style = "color : red">虚拟性</span>：从逻辑上扩充了内存的容量，使用户看到的内存容量，远大于实际的容量。</p>
+<hr />
+<h2 id="如何实现虚拟内存技术"><a class="anchor" href="#如何实现虚拟内存技术">#</a> 如何实现虚拟内存技术</h2>
+<p>虚拟内存技术，允许一个作业分多次调入内存。如果采用连续分配方式，会不方便实现。</p>
+<ul>
+<li>一个作业若先调入一部分到内存中，若另一部分也要调入到内存，<strong>需要给它分配之前作业分配的内存空间相连续的一部分内存空间</strong>。</li>
+<li>即：每一次给作业分配内存空间都需要保证与之前的作业相连续的，这样会很不方便实现</li>
+</ul>
+<p>因此，虚拟内存的实现需要建立在 <span style = "color : red">离散分配</span> 的内存管理方式基础上。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212233618843.png" alt="image-20230212233618843" /></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212233719605.png" alt="image-20230212233719605" /></p>
+<p>主要区别：</p>
+<p>在程序执行过程中，当所 <span style = "color : red">访问的信息不在内存时，由操作系统负责将所需信息从外存调入内存</span>，然后继续执行程序。</p>
+<p>若内存空间不够，由操作系统负责 <span style = "color : red">将内存中暂时用不到的信息换出到外存</span>。</p>
+<hr />
+<p>即：操作系统需要在之前的非连续分配管理中增加两个功能</p>
+<ul>
+<li>操作系统要提供 ** 请求调页（或请求调段）** 功能</li>
+<li>操作系统要提供 ** 页面置换（或段置换）** 的功能</li>
+</ul>
+<h2 id="整体框架-7"><a class="anchor" href="#整体框架-7">#</a> 整体框架</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230212234538989.png" alt="image-20230212234538989" /></p>
+<h1 id="请求分页管理方式"><a class="anchor" href="#请求分页管理方式">#</a> 请求分页管理方式</h1>
+<p>请求分页存储管理与基本分页存储管理的主要区别：在程序执行过程中，当所 <span style = "color : red">访问的信息不在内存时，由操作系统负责将所需信息从外存调入内存</span>，然后继续执行程序。</p>
+<p>若内存空间不够，由操作系统负责 <span style = "color : red">将内存中暂时用不到的信息换出到外存</span>。</p>
+<hr />
+<p>即：操作系统需要在之前的非连续分配管理中增加两个功能</p>
+<ul>
+<li>操作系统要提供 ** 请求调页（或请求调段）** 功能</li>
+<li>操作系统要提供 ** 页面置换（或段置换）** 的功能</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213223938615.png" alt="image-20230213223938615" /></p>
+<p>注意与基本分页存储管理的页表机制、地址变换流程对比学习</p>
+<h2 id="页表机制"><a class="anchor" href="#页表机制">#</a> 页表机制</h2>
+<p>与基本分页管理相比，请求分页管理中，为了实现 “ <code>请求调页</code> ”，操作系统需要知道<strong>每个页面是否已经调入内存</strong>；</p>
+<ul>
+<li>如果还没调入，那么也需要知道该页面在外存中存放的位置。</li>
+</ul>
+<p>当内存空间不够时，要实现 “ <code>页面置换</code> ”，操作系统需要通过某些指标来决定到底换出哪个页面；</p>
+<ul>
+<li>有的页面没有被修改过，就不用再浪费时间写回外存。</li>
+<li>有的页面修改过，就需要将外存中的旧数据覆盖，因此，操作系统也需要记录各个页面是否被修改的信息。</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213212112143.png" alt="image-20230213212112143" /></p>
+<hr />
+<h2 id="缺页中断机构内中断"><a class="anchor" href="#缺页中断机构内中断">#</a> 缺页中断机构（内中断）</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213212248649.png" alt="image-20230213212248649" /></p>
+<p>假设此时要访问逻辑地址 =（页号，页内偏移量）= （0,1024）</p>
+<p>在请求分页系统中，每当要访问的 <span style = "color : red">页面不在内存</span> 时（即：状态位为 0），便产生一个 <span style = "color : red">缺页中断</span>，然后由操作系统的缺页 <span style = "color : red">中断处理程序处理中断</span>。</p>
+<p>此时 <span style = "color : red">缺页的进程阻塞</span>，放入阻塞队列，调页 <span style = "color : red">完成后再将其唤醒</span>，放回就绪队列。</p>
+<hr />
+<p>如果内存中 <span style = "color : red">有空闲块</span>，则为进程 <span style = "color : red">分配一个空闲块</span>，将所缺页面装入该块，并修改页表中相应的页表项。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213212739169.png" alt="image-20230213212739169" /></p>
+<p>如果内存中 <span style = "color : red">没有空闲块</span>，则 <span style = "color : red">由页面置换算法选择一个页面淘汰</span>，</p>
+<ul>
+<li>若该页面在内存期间 <span style = "color : red">被修改过</span>，则要将其 <span style = "color : red">写回外存</span>。</li>
+<li>未修改过的页面不用写回外存。</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213213300034.png" alt="image-20230213213300034" /></p>
+<hr />
+<p><span style = "color : red">缺页中断</span> 是因为当前执行的指令想要访问的目标页面未调入内存而产生的，因此 <span style = "color : red">属于内中断</span></p>
+<p><span style = "color : red">一条指令</span> 在执行期间，<span style = "color : red">可能产生多次缺页中断</span>。</p>
+<ul>
+<li>如:  <code>copy A to B</code> ，即将逻辑地址 A 中的数据复制到逻辑地址 B，而 A、B 属于不同的页面，则有可能产生两次中断
+<ul>
+<li>因为  <code>A</code>  和  <code>B</code>  页面可能都不在内存中</li>
+</ul>
+</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213213831853.png" alt="image-20230213213831853" /></p>
+<hr />
+<h2 id="地址变换机构"><a class="anchor" href="#地址变换机构">#</a> 地址变换机构</h2>
+<p>请求分页存储管理与基本分页存储管理的主要区别：在程序执行过程中，当所 <span style = "color : red">访问的信息不在内存时，由操作系统负责将所需信息从外存调入内存</span>，然后继续执行程序。</p>
+<p>若内存空间不够，由操作系统负责 <span style = "color : red">将内存中暂时用不到的信息换出到外存</span>。</p>
+<hr />
+<p>即：操作系统需要在之前的非连续分配管理中增加两个功能</p>
+<ul>
+<li>操作系统要提供 ** 请求调页（或请求调段）** 功能</li>
+<li>操作系统要提供 ** 页面置换（或段置换）** 的功能</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213212248649.png" alt="image-20230213212248649" /></p>
+<p><strong>新增步骤 1</strong>：请求调页（查到页表项时进行判断）</p>
+<p><strong>新增步骤 2</strong>：页面置换（需要调入页面，但没有空闲内存块时进行）</p>
+<p><strong>新增步骤 3</strong>：需要修改请求页表中新增的表项</p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213214543207.png" alt="image-20230213214543207" /></p>
+<hr />
+<p><strong>整体流程</strong></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213223356338.png" alt="image-20230213223356338" /></p>
+<p><strong>补充细节</strong>:</p>
+<p>① 修改访问位和标志位</p>
+<ul>
+<li>只有 “写指令” 才需要修改 “修改位” 。并且，一般来说只需修改快表中的数据，<strong>只有要将快表项删除时才需要写回内存中的慢表。</strong></li>
+<li>这样可以减少访存次数。</li>
+</ul>
+<p>② 保留  <code>CPU</code>  现场</p>
+<ul>
+<li>和普通的中断处理一样，缺页中断处理依然需要保留 CPU 现场。</li>
+</ul>
+<p>③ 选择一页换出</p>
+<ul>
+<li>需要用某种 “页面置换算法” 来决定一个换出页面 (下节内容)</li>
+</ul>
+<p>④ （将该页写回内存）/ ⑤ （启动  <code>I/O</code>  硬件）</p>
+<ul>
+<li>换入 / 换出页面都需要启动慢速的  <code>I/O</code>  操作，可见，如果换入 / 换出太频繁，会有很大的开销。</li>
+</ul>
+<p>⑥ 修改页表</p>
+<ul>
+<li>页面调入内存后，需要修改慢表，同时也需要将表项复制到快表中。</li>
+</ul>
+<p>在具有快表机构的请求分页系统中，访问一个逻辑地址时，若发生缺页，则地址变换步骤是:</p>
+<p>查快表（未命中）―― 查慢表（发现未调入内存）―― 调页（调入的页面对应的表项<strong>会直接加入快表</strong>）―― <span style = "color : red">查快表</span>（命中）—― 访问目标内存单元</p>
+<h2 id="整体框架-8"><a class="anchor" href="#整体框架-8">#</a> 整体框架</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213224154756.png" alt="image-20230213224154756" /></p>
+<hr />
+<h1 id="页面置换算法"><a class="anchor" href="#页面置换算法">#</a> 页面置换算法</h1>
+<p>请求分页存储管理与基本分页存储管理的主要区别：在程序执行过程中，当所 <span style = "color : red">访问的信息不在内存时，由操作系统负责将所需信息从外存调入内存</span>，然后继续执行程序。</p>
+<p>若内存空间不够，由操作系统负责 <span style = "color : red">将内存中暂时用不到的信息换出到外存</span>。</p>
+<ul>
+<li>页面置换算法决定应该换出哪个页面</li>
+</ul>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213224444607.png" alt="image-20230213224444607" /></p>
+<p>页面的换入、换出需要磁盘  <code>I/O</code> ，会有较大的开销，因此好的页面置换算法应该 <span style = "color : red">追求更少的缺页率</span></p>
+<ul>
+<li>也就是换入、换出的次数尽可能地少</li>
+</ul>
+<hr />
+<h2 id="最佳置换算法"><a class="anchor" href="#最佳置换算法">#</a> 最佳置换算法</h2>
+<p>最佳置换算法（ <code>OPT, Optimal</code> ）：每次选择 <span style = "color : red">淘汰的页面</span> 将是 <span style = "color : red">以后永不使用</span>，或者 <span style = "color : red">在最长时间内不再被访问的页面</span></p>
+<ul>
+<li>这样可以保证最低的缺页率。</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213225508443.png" alt="image-20230213225508443" /></p>
+<p>整个过程 <span style = "color : red">缺页中断</span> 发生了 <span style = "color : red">9 次</span>，<span style = "color : red">页面置换</span> 发生了 <span style = "color : red">6 次</span>。</p>
+<p><strong>注意</strong>：缺页时未必发生页面置换。若还有可用的空闲内存块，就不用进行页面置换。</p>
+<p><span style = "color : red">缺页率</span> = 9 / 20 = 45 %</p>
+<hr />
+<p>最佳置换算法可以保证最低的缺页率，但实际上，只有在进程执行的过程中才能知道接下来会访问到的是哪个页面。<strong>操作系统无法提前预判页面访问序列。</strong></p>
+<ul>
+<li>因此，<span style = "color : red">最佳置换算法是无法实现的</span>。</li>
+</ul>
+<h2 id="先进先出置换算法fifobelady-异常"><a class="anchor" href="#先进先出置换算法fifobelady-异常">#</a> 先进先出置换算法（FIFO）（Belady 异常）</h2>
+<p>先进先出置换算法（ <code>FIFO</code> ）: 每次选择 <span style = "color : red">淘汰的页面</span> 是 <span style = "color : red">最早进入内存的页面</span></p>
+<p>实现方法：把调入内存的页面根据调入的先后顺序排成一个队列，需要换出页面时选择队头页面即可。</p>
+<ul>
+<li>队列的最大长度取决于系统为进程分配了多少个内存块。</li>
+</ul>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213230138099.png" alt="image-20230213230138099" /></p>
+<p>分配 <span style = "color : red">三个</span> 内存块时，缺页次数：<span style = "color : red">9 次</span></p>
+<hr />
+<p>分配 <span style = "color : red">四个</span> 内存块时，缺页次数：<span style = "color : red">10 次</span></p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213230311273.png" alt="image-20230213230311273" /></p>
+<hr />
+<p><span style = "color : red">Belady 异常</span> ：<strong>当为进程分配的物理块数增大时，缺页次数不减反增的异常现象。</strong></p>
+<hr />
+<p><span style = "color : red">只有 FIFO 算法会产生 Belady 异常</span>。另外， <code>FIFO</code>  算法虽然 <span style = "color : red">实现简单</span>，但是该算法与进程实际运行时的规律不适应，因为先进入的页面也有可能最经常被访问。</p>
+<ul>
+<li>因此，<span style = "color : red">算法性能差</span></li>
+</ul>
+<hr />
+<h2 id="最近最久未使用置换算法lru"><a class="anchor" href="#最近最久未使用置换算法lru">#</a> 最近最久未使用置换算法（LRU）</h2>
+<p>最近最久未使用置换算法（LRU，least recently used）：每次 <span style = "color : red">淘汰的页面</span> 是 <span style = "color : red">最近最久未使用的页面</span></p>
+<p>实现方法：赋予每个页面对应的页表项中，用 <span style = "color : red">访问字段记录该页面自上次被访问以来所经历的时间 t </span>。</p>
+<p>当需要淘汰一个页面时，选择现有页面中  <code>t</code>  值最大的，即最近最久未使用的页面。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213231353513.png" alt="image-20230213231353513" /></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213231331505.png" alt="image-20230213231331505" /></p>
+<p>在手动做题时，若需要淘汰页面，可以逆向检查此时在内存中的几个页面号。在 <span style = "color : red">逆向扫描过程中最后一个出现的页号就是要淘汰的页面</span>。</p>
+<hr />
+<p>该算法的实现需要专门的硬件支持，虽然算法 <span style = "color : red">性能好</span>，但是 <span style = "color : red">实现困难，开销大</span></p>
+<h3 id="哈希表-双向链表java"><a class="anchor" href="#哈希表-双向链表java">#</a> 哈希表 + 双向链表（Java）</h3>
+<figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">LRUCache</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Integer</span><span class="token punctuation">,</span> <span class="token class-name">ListNode</span><span class="token punctuation">></span></span> cache <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token class-name">DoublyLinkedList</span> listedList<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">int</span> size<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">LRUCache</span><span class="token punctuation">(</span><span class="token keyword">int</span> capacity<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        listedList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">DoublyLinkedList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        size <span class="token operator">=</span> capacity<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    </pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> key<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token comment">// 说明包含当前元素</span></pre></td></tr><tr><td data-num="12"></td><td><pre>        <span class="token keyword">if</span> <span class="token punctuation">(</span>cache<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>            <span class="token comment">// 将链表中的元素移至尾部</span></pre></td></tr><tr><td data-num="14"></td><td><pre>            <span class="token class-name">ListNode</span> node <span class="token operator">=</span> cache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>            listedList<span class="token punctuation">.</span><span class="token function">removeNode</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>            listedList<span class="token punctuation">.</span><span class="token function">addNodeToTail</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>            <span class="token keyword">return</span> node<span class="token punctuation">.</span>val<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="21"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>    </pre></td></tr><tr><td data-num="23"></td><td><pre>    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">put</span><span class="token punctuation">(</span><span class="token keyword">int</span> key<span class="token punctuation">,</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="24"></td><td><pre>        <span class="token keyword">if</span> <span class="token punctuation">(</span>listedList<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">>=</span> size<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="25"></td><td><pre>            <span class="token comment">// 新的元素</span></pre></td></tr><tr><td data-num="26"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>cache<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="27"></td><td><pre>                <span class="token class-name">ListNode</span> newNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="28"></td><td><pre>                <span class="token comment">// 插入到链表尾部</span></pre></td></tr><tr><td data-num="29"></td><td><pre>                listedList<span class="token punctuation">.</span><span class="token function">addNodeToTail</span><span class="token punctuation">(</span>newNode<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="30"></td><td><pre>                <span class="token comment">// 移除链表头部元素</span></pre></td></tr><tr><td data-num="31"></td><td><pre>                <span class="token keyword">int</span> k <span class="token operator">=</span> listedList<span class="token punctuation">.</span><span class="token function">removeHeadNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="32"></td><td><pre>                cache<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="33"></td><td><pre>                cache<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> newNode<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="34"></td><td><pre>            <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="35"></td><td><pre>                <span class="token class-name">ListNode</span> kNode <span class="token operator">=</span> cache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="36"></td><td><pre>                <span class="token comment">// 将该元素移动到链表尾部</span></pre></td></tr><tr><td data-num="37"></td><td><pre>                listedList<span class="token punctuation">.</span><span class="token function">removeNode</span><span class="token punctuation">(</span>kNode<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="38"></td><td><pre>                kNode<span class="token punctuation">.</span>val <span class="token operator">=</span> value<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="39"></td><td><pre>                listedList<span class="token punctuation">.</span><span class="token function">addNodeToTail</span><span class="token punctuation">(</span>kNode<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="40"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="41"></td><td><pre>        <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="42"></td><td><pre>            <span class="token comment">// 新的元素</span></pre></td></tr><tr><td data-num="43"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>cache<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="44"></td><td><pre>                <span class="token class-name">ListNode</span> newNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="45"></td><td><pre>                <span class="token comment">// 插入到链表尾部</span></pre></td></tr><tr><td data-num="46"></td><td><pre>                listedList<span class="token punctuation">.</span><span class="token function">addNodeToTail</span><span class="token punctuation">(</span>newNode<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="47"></td><td><pre>                cache<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> newNode<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="48"></td><td><pre>            <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="49"></td><td><pre>                <span class="token class-name">ListNode</span> kNode <span class="token operator">=</span> cache<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="50"></td><td><pre>                <span class="token comment">// 将该元素移动到链表尾部</span></pre></td></tr><tr><td data-num="51"></td><td><pre>                listedList<span class="token punctuation">.</span><span class="token function">removeNode</span><span class="token punctuation">(</span>kNode<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="52"></td><td><pre>                kNode<span class="token punctuation">.</span>val <span class="token operator">=</span> value<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="53"></td><td><pre>                listedList<span class="token punctuation">.</span><span class="token function">addNodeToTail</span><span class="token punctuation">(</span>kNode<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="54"></td><td><pre>            <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="55"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="56"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="57"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="58"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="59"></td><td><pre>    <span class="token class-name">ListNode</span> prev<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="60"></td><td><pre>    <span class="token class-name">ListNode</span> next<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="61"></td><td><pre>    <span class="token keyword">int</span> val<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="62"></td><td><pre>    <span class="token keyword">int</span> key<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="63"></td><td><pre>    <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> key<span class="token punctuation">,</span> <span class="token keyword">int</span> val<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="64"></td><td><pre>        <span class="token keyword">this</span><span class="token punctuation">.</span>val <span class="token operator">=</span> val<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="65"></td><td><pre>        <span class="token keyword">this</span><span class="token punctuation">.</span>key <span class="token operator">=</span> key<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="66"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="67"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="68"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">DoublyLinkedList</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="69"></td><td><pre>    <span class="token class-name">ListNode</span> head<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="70"></td><td><pre>    <span class="token class-name">ListNode</span> tail<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="71"></td><td><pre>    <span class="token keyword">int</span> size<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="72"></td><td><pre>    <span class="token comment">// 初始化双向链表</span></pre></td></tr><tr><td data-num="73"></td><td><pre>    <span class="token class-name">DoublyLinkedList</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="74"></td><td><pre>        head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="75"></td><td><pre>        tail <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="76"></td><td><pre>        head<span class="token punctuation">.</span>next <span class="token operator">=</span> tail<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="77"></td><td><pre>        tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> head<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="78"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="79"></td><td><pre>    <span class="token keyword">int</span> <span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="80"></td><td><pre>        <span class="token keyword">return</span> size<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="81"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="82"></td><td><pre>    <span class="token comment">// 删除头部节点</span></pre></td></tr><tr><td data-num="83"></td><td><pre>    <span class="token keyword">int</span> <span class="token function">removeHeadNode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="84"></td><td><pre>        <span class="token class-name">ListNode</span> next <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="85"></td><td><pre>        head<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="86"></td><td><pre>        head<span class="token punctuation">.</span>next<span class="token punctuation">.</span>prev <span class="token operator">=</span> head<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="87"></td><td><pre>        size<span class="token operator">--</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="88"></td><td><pre>        <span class="token keyword">return</span> next<span class="token punctuation">.</span>key<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="89"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="90"></td><td><pre>    <span class="token comment">// 删除节点</span></pre></td></tr><tr><td data-num="91"></td><td><pre>    <span class="token keyword">void</span> <span class="token function">removeNode</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> node<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="92"></td><td><pre>        node<span class="token punctuation">.</span>prev<span class="token punctuation">.</span>next <span class="token operator">=</span> node<span class="token punctuation">.</span>next<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="93"></td><td><pre>        node<span class="token punctuation">.</span>next<span class="token punctuation">.</span>prev <span class="token operator">=</span> node<span class="token punctuation">.</span>prev<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="94"></td><td><pre>        size<span class="token operator">--</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="95"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="96"></td><td><pre>    <span class="token comment">// 添加节点到队尾，尾插法</span></pre></td></tr><tr><td data-num="97"></td><td><pre>    <span class="token keyword">void</span> <span class="token function">addNodeToTail</span><span class="token punctuation">(</span><span class="token class-name">ListNode</span> newNode<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="98"></td><td><pre>        <span class="token class-name">ListNode</span> prev <span class="token operator">=</span> tail<span class="token punctuation">.</span>prev<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="99"></td><td><pre>        prev<span class="token punctuation">.</span>next <span class="token operator">=</span> newNode<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="100"></td><td><pre>        newNode<span class="token punctuation">.</span>prev <span class="token operator">=</span> prev<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="101"></td><td><pre>        tail<span class="token punctuation">.</span>prev <span class="token operator">=</span> newNode<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="102"></td><td><pre>        newNode<span class="token punctuation">.</span>next <span class="token operator">=</span> tail<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="103"></td><td><pre>        size<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="104"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="105"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><hr />
+<h2 id="时钟置换算法clock"><a class="anchor" href="#时钟置换算法clock">#</a> 时钟置换算法（CLOCK）</h2>
+<p>最佳置换算法性能最好，但无法实现；先进先出置换算法实现简单，但算法性能差；</p>
+<p>最近最久未使用置换算法性能好，是最接近  <code>OPT</code>  算法性能的，但是实现起来需要专门的硬件支持，算法开销大。</p>
+<hr />
+<p><span style = "color : red">时钟置换算法</span> 是一种性能和开销较均衡的算法，又称 <span style = "color : red">CLOCK 算法</span>，或 <span style = "color : red">最近未用算法</span>（<span style = "color : red">NRU</span>，NotRecently Used)</p>
+<hr />
+<p><span style = "color : red">简单的 CLOCK 算法</span> 实现方法：为每个页面设置一个 <span style = "color : red">访问位</span>，再将内存中的页面都通过链接指针 <span style = "color : red">链接成一个循环队列</span>。</p>
+<ul>
+<li>当某页被访问时，其访问位置为 1。</li>
+<li>当需要淘汰一个页面时，只需检查页的访问位。如果是 0，就选择该页换出；如果是 1，则将它置为 0，暂不换出，继续检查下一个页面，若第一轮扫描中所有页面都是 1，则将这些页面的访问位依次置为 0 后，再进行第二轮扫描</li>
+<li>第二轮扫描中一定会有访问位为 0 的页面，因此 <span style = "color : red">简单的 CLOCK 算法</span> 选择一个淘汰页面 <span style = "color : red">最多会经过两轮扫描</span></li>
+</ul>
+<p><strong>淘汰出访问位为 0 的页面</strong></p>
+<hr />
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213232113664.png" alt="image-20230213232113664" /></p>
+<hr />
+<p>例：假设系统为某进程分配了五个内存块，并考虑到有以下页面号引用串：</p>
+<p>1，3，4，2，5，6，3，4，7</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230213233252559.png" alt="image-20230213233252559" /></p>
+<h2 id="改进型的时钟置换算法"><a class="anchor" href="#改进型的时钟置换算法">#</a> 改进型的时钟置换算法</h2>
+<p><span style = "color : red">简单的时钟置换算法</span> 仅考虑到一个页面最近是否被访问过。</p>
+<p>事实上，如果被淘汰的页面没有被修改过，就不需要执行  <code>I/O</code>  操作写回外存。</p>
+<p><span style = "color : red">只有被淘汰的页面被修改过时，才需要写回外存</span>。</p>
+<p>因此，除了考虑一个页面最近有没有被访问过之外，操作系统还应考虑页面有没有被修改过。</p>
+<p><span style = "color : red">在其他条件都相同时，应优先淘汰没有修改过的页面</span>，避免  <code>I/O</code>  操作。这就是改进型的时钟置换算法的思想。</p>
+<p><span style = "color : red">修改位 = 0</span>，表示页面没有被修改过；<span style = "color : red">修改位 = 1</span>，表示页面被修改过。</p>
+<p>为方便讨论，用 <span style = "color : red">（访问位，修改位）</span> 的形式表示各页面状态。</p>
+<ul>
+<li>如（1，1）表示一个页面近期被访问过，且被修改过。</li>
+</ul>
+<hr />
+<p><span style = "color : red">算法规则</span>：将所有可能被置换的页面排成一个循环队列</p>
+<p>第一轮：从当前位置开始扫描到第一个（0,0）的帧用于替换。</p>
+<ul>
+<li>本轮扫描不修改任何标志位</li>
+</ul>
+<p>第二轮：若第一轮扫描失败，则重新扫描，查找第一个（0,1）的帧用于替换。</p>
+<ul>
+<li>本轮将所有扫描过的帧访问位设为 0</li>
+</ul>
+<p>第三轮：若第二轮扫描失败，则重新扫描，查找第一个（0,0）的帧用于替换。</p>
+<ul>
+<li>本轮扫描不修改任何标志位</li>
+</ul>
+<p>第四轮：若第三轮扫描失败，则重新扫描，查找第一个（0,1）的帧用于替换</p>
+<p>由于第二轮已将所有帧的访问位设为 0 ，因此经过第三轮、第四轮扫描一定会有一个帧被选中，</p>
+<ul>
+<li>因此 <span style = "color : red">改进型 CLOCK 置换算法</span> 选择一个淘汰页面 <span style = "color : red">最多会进行四轮扫描</span></li>
+</ul>
+<hr />
+<p><strong>总结</strong>：</p>
+<p>第一轮：找没访问过的、没修改的页面</p>
+<p>第二轮：找没访问过的、修改的页面</p>
+<ul>
+<li><strong>将所有扫描过的帧访问位设为 0</strong></li>
+</ul>
+<p>第三轮：找没访问过的、没修改的页面</p>
+<p>第四轮：找没访问过的、修改的页面</p>
+<hr />
+<p><strong>只需一轮扫描</strong>（0，0）</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214000207607.png" alt="image-20230214000207607" /></p>
+<p><strong>二轮扫描</strong>（0，1）—&gt;（0，1）</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214000612755.png" alt="image-20230214000612755" /></p>
+<p><strong>三轮扫描</strong>（0，1）—&gt;（0，1）—&gt;（0，0）</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214001051302.png" alt="image-20230214001051302" /></p>
+<p><strong>四轮扫描</strong>（0，1）—&gt;（0，1）—&gt;（0，0）—&gt;（0，1）</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214001251060.png" alt="image-20230214001251060" /></p>
+<h2 id="总结-2"><a class="anchor" href="#总结-2">#</a> 总结</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th>算法规则</th>
+<th>优缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">OPT</td>
+<td>优先淘汰最长时间内不会被访问的页面</td>
+<td>缺页率最小，性能最好；但无法实现</td>
+</tr>
+<tr>
+<td style="text-align:center">FIFO</td>
+<td>优先淘汰最先进入内存的页面</td>
+<td>实现简单；但性能很差，可能出现 Belady 异常</td>
+</tr>
+<tr>
+<td style="text-align:center">LRU</td>
+<td>优先淘汰最近最久没访问的页面</td>
+<td>性能很好；但需要硬件支持，算法开销大</td>
+</tr>
+<tr>
+<td style="text-align:center">CLOCK（NRU）</td>
+<td>循环扫描各页面 <br/> 第一轮淘汰访问位 = 0 的，并将扫描过的页面访问位改为 1。若第一轮没选中，则进行第二轮扫描。</td>
+<td>实现简单，算法开销小；但未考虑页面是否被修改过。</td>
+</tr>
+<tr>
+<td style="text-align:center">改进型 CLOCK（改进型 NRU）</td>
+<td>若用（访问位，修改位）的形式表述，则 <br/> 第一轮：淘汰（0, 0）<br/> 第二轮：淘汰（0, 1），并将扫描过的页面访问位都置为 0<br/> 第三轮：淘汰（0, 0）&lt;br /&gt; 第四轮：淘汰（0, 1)</td>
+<td>算法开销较小，性能也不错</td>
+</tr>
+</tbody>
+</table>
+<h1 id="页面分配策略"><a class="anchor" href="#页面分配策略">#</a> 页面分配策略</h1>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214201308178.png" alt="image-20230214201308178" /></p>
+<h2 id="驻留集"><a class="anchor" href="#驻留集">#</a> 驻留集</h2>
+<p><span style = "color : red">驻留集</span> ：指请求分页存储管理中给进程分配的物理块的集合</p>
+<p>在采用了虚拟存储技术的系统中，驻留集的大小一般小于进程的总大小</p>
+<p>考虑一个极端情况</p>
+<ul>
+<li>
+<p>若某进程共有 100 个页面，则该进程的驻留集大小为 100 时进程可以全部放入内存，运行期间不可能再发生缺页。</p>
+</li>
+<li>
+<p>若驻留集大小为 1，则进程运行期间必定会极频繁地缺页</p>
+</li>
+</ul>
+<p>若驻留集太小，会导致缺页频繁，系统要花大量的时间来处理缺页，实际用于进程推进的时间很少；</p>
+<p>驻留集太大，又会导致多道程序并发度下降，资源利用率降低。所以应该选择一个合适的驻留集大小。</p>
+<ul>
+<li>驻留集太大，内存空间优先，会导致<strong>少数进程能驻留在内存中</strong>，导致  <code>CPU</code>  并发度不高。
+<ul>
+<li>即：驻留集太大，内存中的进程数量就会减少，并发度也就下降</li>
+</ul>
+</li>
+<li>也会导致其他进程分配的驻留集就会很少</li>
+</ul>
+<h2 id="页面分配-置换策略"><a class="anchor" href="#页面分配-置换策略">#</a> 页面分配、置换策略</h2>
+<p><span style = "color : red">固定分配</span>：操作系统为每个进程分配一组固定数目的物理块，在进程运行期间不再改变。</p>
+<ul>
+<li>即，<span style = "color : red">驻留集大小不变</span></li>
+</ul>
+<p><span style = "color : red">可变分配</span>：先为每个进程分配一定数目的物理块，在进程运行期间，可根据情况做适当的增加或减少。</p>
+<ul>
+<li>即，<span style = "color : red">驻留集大小可变</span></li>
+</ul>
+<hr />
+<p><span style = "color : red">局部置换</span>：发生缺页时只能选进程自己的物理块进行置换。</p>
+<p><span style = "color : red">全局置换</span>：可以将操作系统保留的空闲物理块分配给缺页进程，也可以将别的进程持有的物理块置换到外存，再分配给缺页进程。</p>
+<hr />
+<p>策略组合：</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214202423886.png" alt="image-20230214202423886" /></p>
+<p>固定分配不能更全局置换组合</p>
+<ul>
+<li>
+<p>因为采用全局置换，若操作系统将空闲的物理块分配给该缺页进程，会导致该进程的驻留集大小<strong>增大</strong>，不满足固定分配。若操作系统将其他进程持有的物理块分配给该缺页进程，会导致原先持有该物理块的进程的驻留集<strong>减少</strong>，当前缺页进程的驻留集<strong>增大</strong></p>
+</li>
+<li>
+<p>全局置换意味着<strong>一个进程拥有的物理块数量必然会改变</strong>，因此不可能是固定分配</p>
+</li>
+</ul>
+<hr />
+<h3 id="固定分配局部置换"><a class="anchor" href="#固定分配局部置换">#</a> 固定分配局部置换</h3>
+<p><span style = "color : red">固定分配局部置换</span>：系统为每个进程分配一定数量的物理块，在整个运行期间都不改变。若进程在运行中发生缺页，则只能从该进程在内存中的页面中选出一页换出，然后再调入需要的页面。</p>
+<p>这种策略的缺点是：很难在刚开始就确定应为<strong>每个进程分配多少个物理块才算合理</strong>。</p>
+<p>采用这种策略的系统可以根据进程大小、优先级、或是根据程序员给出的参数来确定为一个进程分配的内存块数)</p>
+<hr />
+<h3 id="可变分配全局置换"><a class="anchor" href="#可变分配全局置换">#</a> 可变分配全局置换</h3>
+<p><span style = "color : red">可变分配全局置换</span>：刚开始会为每个进程分配一定数量的物理块。</p>
+<p>操作系统会保持一个空闲物理块队列。</p>
+<p>当某进程发生缺页时，从空闲物理块中取出一块分配给该进程；</p>
+<ul>
+<li>若已无空闲物理块，则可选择一个 <span style = "color : red">未锁定</span> 的页面换出外存，再将该物理块分配给缺页的进程。</li>
+</ul>
+<p>采用这种策略时，<span style = "color : red">只要某进程发生缺页，都将获得新的物理块，</span><strong> 仅当空闲物理块用完时，系统才选择一个未锁定的页面调出</strong>。被选择调出的页可能是系统中任何一个进程中的页，因此这个 <span style = "color : red">被选中的进程拥有的物理块会减少，缺页率会增加</span>。</p>
+<hr />
+<p>为什么要选择 <span style = "color : red">未锁定</span> 的页面调出</p>
+<ul>
+<li>因为系统会锁定一些页面，这些页面中的内容不能置换出外存（如：重要的 <code>内核数据</code> 可以设为 “锁定” )</li>
+</ul>
+<hr />
+<h3 id="可变分配局部置换"><a class="anchor" href="#可变分配局部置换">#</a> 可变分配局部置换</h3>
+<p><span style = "color : red">可变分配局部置换</span>：刚开始会为每个进程分配一定数量的物理块。</p>
+<p>当某进程发生缺页时，只允许从该进程<strong>自己的物理块中选出一个</strong>进行换出外存。</p>
+<p>如果进程在运行中频繁地缺页，系统会为该进程<strong>多分配几个物理块</strong>，直至该进程缺页率趋势适当程度；</p>
+<ul>
+<li>反之，如果进程在运行中缺页率特别低，则可适当减少分配给该进程的物理块。</li>
+</ul>
+<hr />
+<p>可变分配 <span style = "color : red">全局</span> 置换：只要缺页就给分配新物理块</p>
+<p>可变分配 <span style = "color : red">局部</span> 置换：要根据发生 <span style = "color : red">缺页的频率</span> 来动态地增加或减少进程的物理块</p>
+<h2 id="何时调入页面"><a class="anchor" href="#何时调入页面">#</a> 何时调入页面</h2>
+<h3 id="预调页策略"><a class="anchor" href="#预调页策略">#</a> 预调页策略</h3>
+<p>预调页策略：根据<strong>局部性原理</strong>，一次调入若干个相邻的页面可能比一次调入一个页面更高效。</p>
+<ul>
+<li>主要是指空间局部性：如果当前访问了某个内存单元，在之后很有可能会接着访问与其相邻的内存单元</li>
+</ul>
+<p>但如果提前调入的页面中大多数都没被访问过，则又是低效的。</p>
+<ul>
+<li>因此可以预测不久之后可能访问到的页面，将它们预先调入内存，但目前预测成功率只有 50% 左右。</li>
+</ul>
+<p>故这种策略 <span style = "color : red">主要用于进程的首次调入</span>，由程序员指出应该先调入哪些部分。</p>
+<ul>
+<li>运行前调入</li>
+</ul>
+<hr />
+<h3 id="请求调页策略"><a class="anchor" href="#请求调页策略">#</a> 请求调页策略</h3>
+<p>请求调页策略：进程 <span style = "color : red">在运行期间发现缺页时才将所缺页面调入内存</span>。由这种策略调入的页面一定会被访问到，但由于每次只能调入一页，而每次调页都要磁盘  <code>I/O</code>  操作，因此  <code>I/O</code>  开销较大。</p>
+<ul>
+<li>运行时调入</li>
+</ul>
+<hr />
+<p>一般情况下，都会二者结合起来调用</p>
+<h2 id="从何处调入页面"><a class="anchor" href="#从何处调入页面">#</a> 从何处调入页面</h2>
+<p>① 系统拥有<strong>足够</strong>的对换区空间：页面的调入、调出都是在内存与对换区之间进行，这样可以保证页面的调入、调出速度很快。</p>
+<p>在进程运行前，需将进程相关的数据从文件区复制到对换区。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214204556984.png" alt="image-20230214204556984" /></p>
+<hr />
+<p>② 系统<strong>缺少</strong>足够的对换区空间：凡是不会被修改的数据都直接从文件区调入，由于这些页面不会被修改，因此换出时不必写回磁盘，下次需要时再从文件区调入即可。</p>
+<p>对于 <span style = "color : red">可能被修改的</span> 部分，换出时需写回磁盘对换区，下次需要时再从对换区调入。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214204826138.png" alt="image-20230214204826138" /></p>
+<p>③  <code>UNIX</code>  方式：运行之前进程有关的数据全部放在文件区，故未使用过的页面，都可从文件区调入。</p>
+<p>若 <span style = "color : red">被使用过的</span> 页面需要换出，则写回对换区，下次需要时从对换区调入。</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214205053069.png" alt="image-20230214205053069" /></p>
+<hr />
+<p>可以看出 ② 是<strong>被修改过后</strong>的页面才会调出到对换区，③ 是 ** 被访问过后（被使用过的）** 才会调出到对换区</p>
+<hr />
+<h2 id="抖动颠簸现象"><a class="anchor" href="#抖动颠簸现象">#</a> 抖动（颠簸）现象</h2>
+<p>刚刚换出的页面马上又要换入内存，刚刚换入的页面马上又要换出外存，这种频繁的页面调度行为称为 <span style = "color : red">抖动</span>，或 <span style = "color : red">颠簸</span>。</p>
+<ul>
+<li>频繁地调入、调出页面</li>
+</ul>
+<p>产生抖动的 <span style = "color : red">主要原因</span> 是<strong>进程频繁访问的页面数目高于可用的物理块数</strong>（<span style = "color : red">分配给进程的物理块不够</span>)</p>
+<hr />
+<p>为进程分配的物理块太少，会使进程发生抖动现象。</p>
+<p>为进程分配的物理块太多，又会降低系统整体的并发度，降低某些资源的利用率</p>
+<hr />
+<p>为了研究为应该为每个进程分配多少个物理块， <code>Denning</code>  提出了进程 “工作集” 的概念</p>
+<hr />
+<h2 id="工作集"><a class="anchor" href="#工作集">#</a> 工作集</h2>
+<p><span style = "color : red">驻留集</span>：指请求分页存储管理中给进程分配的内存块的集合。</p>
+<p><span style = "color : red">工作集</span>：指在某段时间间隔里，进程实际访问页面的集合。</p>
+<hr />
+<p>操作系统会根据 “窗口尺寸” 来算出工作集。例:<br />
+ 某进程的页面访问序列如下，<span style = "color : red">窗口尺寸为 4 </span>，各时刻的工作集为？</p>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214210752580.png" alt="image-20230214210752580" /></p>
+<p><span style = "color : red">工作集大小</span> 可能小于窗口尺寸，实际应用中，操作系统可以统计进程的工作集大小，根据工作集大小给进程分配若干内存块。</p>
+<p>如：窗口尺寸为 5，经过一段时间的监测发现某进程的工作集最大为 3 ，那么说明该进程有很好的局部性，可以给这个进程分配 3 个以上的内存块即可满足进程的运行需要。</p>
+<ul>
+<li>时间局部性：如果执行了程序中的某条指令，那么不久后这条指令很有可能再次执行；<strong>如果某个数据被访问过，不久之后该数据很可能再次被访问</strong>。</li>
+</ul>
+<hr />
+<p>根据工作集的大小确定驻留集的大小</p>
+<p>一般来说，<span style = "color : red">驻留集大小不能小于工作集大小，否则进程运行过程中将频繁的缺页</span></p>
+<ul>
+<li>即：<strong>抖动现象</strong></li>
+<li>例如：当前一段时间工作集大小为 3，驻留集大小为 2，当前进程要访问多出来的一个页面，需要发生缺页中断，根据相应的策略以及算法处理</li>
+</ul>
+<hr />
+<p>拓展：基于局部性原理（空间局部性）可知，进程在一段时间内访问的页面与不久之后会访问的页面是有相关性的。</p>
+<p>因此，可以根据进程近期访问的页面集合（工作集）来设计一种页面置换算法――<strong>选择一个不在工作集中的页面进行淘汰</strong>。</p>
+<hr />
+<h2 id="整体框架-9"><a class="anchor" href="#整体框架-9">#</a> 整体框架</h2>
+<p><img loading="lazy" data-src="https://gitcode.net/qq_67720621/img/-/raw/master/typora-user-images-new/image-20230214211648737.png" alt="image-20230214211648737" /></p>
+</div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-calendar-check"></i></span><span class="text">更新于</span><time title="修改时间：2023-06-06 12:30:38" itemprop="dateModified" datetime="2023-06-06T12:30:38+08:00">2023-06-06</time></span></div><div class="reward"><button><i class="ic i-heartbeat"></i>赞赏</button><p>请我喝[茶]~(￣▽￣)~*</p><div id="qr"><div><img loading="lazy" data-src="/assets/wechatpay.png" alt="htired 微信支付"/><p>微信支付</p></div><div><img loading="lazy" data-src="/assets/alipay.png" alt="htired 支付宝"/><p>支付宝</p></div></div></div><div id="copyright"><ul><li class="author"><strong>htired：</strong>htired<i class="ic i-at"><em>@</em></i>何必要叹气呢？</li><li class="link"><strong>本文链接：</strong><a href="https://www.htired.top/2023/06/02/os/3%E3%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" title="3、内存管理">https://www.htired.top/2023/06/02/os/3、内存管理/</a></li><li class="license"><strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2023/06/02/os/2%E3%80%81%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="prev" itemprop="url" data-background-image="https:&#x2F;&#x2F;github.com&#x2F;htired&#x2F;MyPic&#x2F;blob&#x2F;main&#x2F;img&#x2F;792a4b6934fc491b81342206e3192e59.png?raw&#x3D;true" title="2、进程管理"><span class="type">上一篇</span><span class="category"><i class="ic i-flag"></i>操作系统</span><h3>2、进程管理</h3></a></div><div class="item right"><a href="/2023/06/02/os/4%E3%80%81%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="next" itemprop="url" data-background-image="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;htired&#x2F;MyPic&#x2F;main&#x2F;img&#x2F;1b87e2c5880511ebb6edd017c2d2eca2.png" title="4、文件管理"><span class="type">下一篇</span><span class="category"><i class="ic i-flag"></i>操作系统</span><h3>4、文件管理</h3></a></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%9A%84%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text"> 内存的基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E5%AD%98"><span class="toc-number">1.1.</span> <span class="toc-text"> 什么是内存？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86-%E6%8C%87%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text"> 进程的运行原理 -- 指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80-%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80"><span class="toc-number">1.3.</span> <span class="toc-text"> 逻辑地址 &amp; 物理地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E5%86%99%E7%A8%8B%E5%BA%8F%E5%88%B0%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C"><span class="toc-number">1.4.</span> <span class="toc-text"> 从写程序到程序运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%85%E5%85%A5%E6%A8%A1%E5%9D%97%E5%88%B0%E8%BF%90%E8%A1%8C"><span class="toc-number">1.5.</span> <span class="toc-text"> 装入模块到运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%85%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F-%E7%BB%9D%E5%AF%B9%E8%A3%85%E5%85%A5"><span class="toc-number">1.6.</span> <span class="toc-text"> 装入的三种方式 -- 绝对装入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%85%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F-%E9%9D%99%E6%80%81%E9%87%8D%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.7.</span> <span class="toc-text"> 装入的三种方式 -- 静态重定位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%85%E5%85%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F-%E5%8A%A8%E6%80%81%E9%87%8D%E5%AE%9A%E4%BD%8D%E9%87%8D%E5%AE%9A%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.8.</span> <span class="toc-text"> 装入的三种方式 -- 动态重定位（重定位寄存器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">1.9.</span> <span class="toc-text"> 链接的三种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">1.9.1.</span> <span class="toc-text"> 静态链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%85%E5%85%A5%E6%97%B6%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">1.9.2.</span> <span class="toc-text"> 装入时动态链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">1.9.3.</span> <span class="toc-text"> 运行时动态链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6"><span class="toc-number">1.10.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">2.</span> <span class="toc-text"> 内存管理的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%86%E9%85%8D%E4%B8%8E%E5%9B%9E%E6%94%B6"><span class="toc-number">2.1.</span> <span class="toc-text"> 内存空间的分配与回收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E7%9A%84%E6%89%A9%E5%85%85"><span class="toc-number">2.2.</span> <span class="toc-text"> 内存空间的扩充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.3.</span> <span class="toc-text"> 地址转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E4%BF%9D%E6%8A%A4"><span class="toc-number">2.4.</span> <span class="toc-text"> 内存保护</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A-%E4%B8%8B%E9%99%90%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.4.1.</span> <span class="toc-text"> 上、下限寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8%E5%92%8C%E7%95%8C%E5%9C%B0%E5%9D%80%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.4.2.</span> <span class="toc-text"> 重定位寄存器和界地址寄存器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A6%86%E7%9B%96-%E4%BA%A4%E6%8D%A2%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text"> 覆盖 &amp; 交换技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%86%E7%9B%96%E6%8A%80%E6%9C%AF%E5%90%8C%E4%B8%80%E8%BF%9B%E7%A8%8B"><span class="toc-number">3.1.</span> <span class="toc-text"> 覆盖技术（同一进程）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BA%E5%AE%9A%E5%8C%BA-%E8%A6%86%E7%9B%96%E5%8C%BA"><span class="toc-number">3.1.1.</span> <span class="toc-text"> 固定区 &amp; 覆盖区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E6%8D%A2%E6%8A%80%E6%9C%AF%E4%B8%8D%E5%90%8C%E8%BF%9B%E7%A8%8B"><span class="toc-number">3.2.</span> <span class="toc-text"> 交换技术（不同进程）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%8D%A2%E5%8C%BA-%E6%96%87%E4%BB%B6%E5%8C%BA"><span class="toc-number">3.2.1.</span> <span class="toc-text"> 对换区 &amp; 文件区</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text"> 连续分配管理方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%B8%80%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E6%9C%89%E5%86%85%E9%83%A8%E7%A2%8E%E7%89%87"><span class="toc-number">4.1.</span> <span class="toc-text"> 单一连续分配（有内部碎片）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D"><span class="toc-number">4.2.</span> <span class="toc-text"> 固定分区分配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E5%A4%A7%E5%B0%8F%E4%B8%8D%E7%9B%B8%E7%AD%89"><span class="toc-number">4.2.1.</span> <span class="toc-text"> 分区大小（不）相等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%8C%BA%E8%AF%B4%E6%98%8E%E8%A1%A8%E6%9C%89%E5%86%85%E9%83%A8%E7%A2%8E%E7%89%87"><span class="toc-number">4.2.2.</span> <span class="toc-text"> 分区说明表（有内部碎片）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E6%9C%89%E5%A4%96%E9%83%A8%E7%A2%8E%E7%89%87"><span class="toc-number">4.3.</span> <span class="toc-text"> 动态分区分配（有外部碎片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B2%E5%88%86%E5%8C%BA%E8%A1%A8%E9%93%BE"><span class="toc-number">4.3.1.</span> <span class="toc-text"> 空闲分区表 &#x2F; 链</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA%E7%A9%BA%E9%97%B2%E5%88%86%E5%8C%BA%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E5%88%86%E9%85%8D"><span class="toc-number">4.3.2.</span> <span class="toc-text"> 多个空闲分区选择哪一个分配？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E9%97%B2%E5%88%86%E5%8C%BA%E7%9A%84%E5%88%86%E9%85%8D%E4%B8%8E%E5%9B%9E%E6%94%B6"><span class="toc-number">4.3.3.</span> <span class="toc-text"> 空闲分区的分配与回收</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E9%85%8D"><span class="toc-number">4.3.3.1.</span> <span class="toc-text"> 分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%94%B6"><span class="toc-number">4.3.3.2.</span> <span class="toc-text"> 回收</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%A2%8E%E7%89%87-%E5%A4%96%E9%83%A8%E7%A2%8E%E7%89%87"><span class="toc-number">4.4.</span> <span class="toc-text"> 内部碎片 &amp; 外部碎片</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A7%E5%87%91%E6%8A%80%E6%9C%AF%E8%A7%A3%E5%86%B3%E5%A4%96%E9%83%A8%E7%A2%8E%E7%89%87"><span class="toc-number">4.4.1.</span> <span class="toc-text"> 紧凑技术解决外部碎片</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D%E7%AE%97%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text"> 动态分区分配算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A6%96%E6%AC%A1%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95"><span class="toc-number">5.1.</span> <span class="toc-text"> 首次适应算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95"><span class="toc-number">5.2.</span> <span class="toc-text"> 最佳适应算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E5%9D%8F%E5%A4%A7%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95"><span class="toc-number">5.3.</span> <span class="toc-text"> 最坏（大）适应算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%82%BB%E8%BF%91%E9%80%82%E5%BA%94%E7%AE%97%E6%B3%95"><span class="toc-number">5.4.</span> <span class="toc-text"> 邻近适应算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86"><span class="toc-number">6.</span> <span class="toc-text"> 基本分页存储管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-number">6.1.</span> <span class="toc-text"> 连续分配方式的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%8A-%E5%9B%BA%E5%AE%9A%E5%88%86%E5%8C%BA%E5%88%86%E9%85%8D-%E6%94%B9%E9%80%A0%E4%B8%BA-%E9%9D%9E%E8%BF%9E%E7%BB%AD%E5%88%86%E9%85%8D%E7%89%88%E6%9C%AC"><span class="toc-number">6.2.</span> <span class="toc-text"> 把 &quot;固定分区分配&quot; 改造为 &quot;非连续分配版本&quot;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%88%86%E9%A1%B5%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">6.3.</span> <span class="toc-text"> 基本分页存储管理基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E6%A1%86%E5%86%85%E5%AD%98%E5%9D%97-%E7%89%A9%E7%90%86%E5%9D%97-%E9%A1%B5%E9%9D%A2%E5%86%85%E9%83%A8%E7%A2%8E%E7%89%87"><span class="toc-number">6.3.1.</span> <span class="toc-text"> 页框 (内存块、物理块) &amp; 页面，内部碎片</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%9C%B0%E5%9D%80%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">6.3.2.</span> <span class="toc-text"> 如何实现地址的转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%E7%BB%93%E6%9E%84"><span class="toc-number">6.3.3.</span> <span class="toc-text"> 逻辑地址结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8-%E9%A1%B5%E8%A1%A8%E9%A1%B9"><span class="toc-number">6.3.4.</span> <span class="toc-text"> 页表、页表项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6-2"><span class="toc-number">6.3.5.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E6%9E%84"><span class="toc-number">6.4.</span> <span class="toc-text"> 基本地址变换机构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8%E5%AF%84%E5%AD%98%E5%99%A8ptr"><span class="toc-number">6.4.1.</span> <span class="toc-text"> 页表寄存器（PTR）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%E5%88%B0%E7%89%A9%E7%90%86%E5%9C%B0%E5%9D%80%E7%9A%84%E5%8F%98%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="toc-number">6.4.2.</span> <span class="toc-text"> 逻辑地址到物理地址的变换过程！</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-number">6.4.3.</span> <span class="toc-text"> 例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8%E9%A1%B9%E5%A4%A7%E5%B0%8F%E7%9A%84%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%8E%A2%E8%AE%A8"><span class="toc-number">6.4.4.</span> <span class="toc-text"> 页表项大小的进一步探讨</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%BD%A2%E8%AE%B0%E5%BF%86"><span class="toc-number">6.4.5.</span> <span class="toc-text"> 图形记忆！</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6-3"><span class="toc-number">6.4.6.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B7%E6%9C%89%E5%BF%AB%E8%A1%A8%E7%9A%84%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E6%9E%84"><span class="toc-number">6.5.</span> <span class="toc-text"> 具有快表的地址变换机构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86%E6%97%B6%E9%97%B4%E7%A9%BA%E9%97%B4"><span class="toc-number">6.5.0.1.</span> <span class="toc-text"> 局部性原理（时间 &#x2F; 空间）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BF%AB%E8%A1%A8%E7%9B%B8%E8%81%94%E5%AF%84%E5%AD%98%E5%99%A8tlb"><span class="toc-number">6.5.1.</span> <span class="toc-text"> 什么是快表（相联寄存器）（TLB）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E5%BF%AB%E8%A1%A8%E5%90%8E%E5%9C%B0%E5%9D%80%E7%9A%84%E5%8F%98%E6%8D%A2%E8%BF%87%E7%A8%8B"><span class="toc-number">6.5.2.</span> <span class="toc-text"> 引入快表后，地址的变换过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.5.3.</span> <span class="toc-text"> 总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E7%BA%A7%E9%A1%B5%E8%A1%A8"><span class="toc-number">6.6.</span> <span class="toc-text"> 两级页表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E7%BA%A7%E9%A1%B5%E8%A1%A8%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">6.6.1.</span> <span class="toc-text"> 单级页表存在的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%8D%95%E7%BA%A7%E9%A1%B5%E8%A1%A8%E7%9A%84%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98%E4%B8%80%E9%A1%B5%E7%9B%AE%E5%BD%95%E8%A1%A8"><span class="toc-number">6.6.2.</span> <span class="toc-text"> 如何解决单级页表的问题？问题一（页目录表）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A4%E7%BA%A7%E9%A1%B5%E8%A1%A8%E7%9A%84%E5%8E%9F%E7%90%86-%E5%9C%B0%E5%9D%80%E7%BB%93%E6%9E%84"><span class="toc-number">6.6.3.</span> <span class="toc-text"> 两级页表的原理、地址结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2"><span class="toc-number">6.6.4.</span> <span class="toc-text"> 如何实现地址变换？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%8D%95%E7%BA%A7%E9%A1%B5%E8%A1%A8%E7%9A%84%E9%97%AE%E9%A2%98%E9%97%AE%E9%A2%98%E4%BA%8C-%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD"><span class="toc-number">6.6.5.</span> <span class="toc-text"> 如何解决单级页表的问题？问题二 （缺页中断）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%87%A0%E4%B8%AA%E7%BB%86%E8%8A%82"><span class="toc-number">6.6.6.</span> <span class="toc-text"> 需要注意的几个细节 ！</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6-4"><span class="toc-number">6.6.7.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%88%86%E6%AE%B5%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text"> 基本分段存储方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%AE%B5"><span class="toc-number">7.1.</span> <span class="toc-text"> 分段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AE%B5%E8%A1%A8"><span class="toc-number">7.2.</span> <span class="toc-text"> 段表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2"><span class="toc-number">7.3.</span> <span class="toc-text"> 地址变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%AE%B5-%E5%88%86%E9%A1%B5%E7%AE%A1%E7%90%86%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-number">7.4.</span> <span class="toc-text"> 分段、分页管理的对比</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6-5"><span class="toc-number">7.5.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AE%B5%E9%A1%B5%E5%BC%8F%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text"> 段页式管理方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E9%A1%B5-%E5%88%86%E6%AE%B5%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90"><span class="toc-number">8.1.</span> <span class="toc-text"> 分页、分段的优缺点分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AE%B5%E9%A1%B5%E5%BC%8F%E7%AE%A1%E7%90%86"><span class="toc-number">8.2.</span> <span class="toc-text"> 段页式管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AE%B5%E9%A1%B5%E5%BC%8F%E7%AE%A1%E7%90%86%E7%9A%84%E9%80%BB%E8%BE%91%E5%9C%B0%E5%9D%80%E7%BB%93%E6%9E%84"><span class="toc-number">8.3.</span> <span class="toc-text"> 段页式管理的逻辑地址结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AE%B5%E8%A1%A8-%E9%A1%B5%E8%A1%A8"><span class="toc-number">8.4.</span> <span class="toc-text"> 段表、页表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2-2"><span class="toc-number">8.5.</span> <span class="toc-text"> 地址变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6-6"><span class="toc-number">8.6.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">9.</span> <span class="toc-text"> 虚拟内存的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9F%E5%AD%98%E5%82%A8%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F%E7%9A%84%E7%89%B9%E5%BE%81-%E7%BC%BA%E7%82%B9"><span class="toc-number">9.1.</span> <span class="toc-text"> 传统存储管理方式的特征、缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E6%8A%80%E6%9C%AF%E6%80%9D%E6%83%B3"><span class="toc-number">9.2.</span> <span class="toc-text"> 局部性原理（高速缓冲技术思想）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E7%89%B9%E5%BE%81"><span class="toc-number">9.3.</span> <span class="toc-text"> 虚拟内存的定义和特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">9.3.1.</span> <span class="toc-text"> 定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81"><span class="toc-number">9.3.2.</span> <span class="toc-text"> 特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E6%8A%80%E6%9C%AF"><span class="toc-number">9.4.</span> <span class="toc-text"> 如何实现虚拟内存技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6-7"><span class="toc-number">9.5.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E5%88%86%E9%A1%B5%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">10.</span> <span class="toc-text"> 请求分页管理方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8%E6%9C%BA%E5%88%B6"><span class="toc-number">10.1.</span> <span class="toc-text"> 页表机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E9%A1%B5%E4%B8%AD%E6%96%AD%E6%9C%BA%E6%9E%84%E5%86%85%E4%B8%AD%E6%96%AD"><span class="toc-number">10.2.</span> <span class="toc-text"> 缺页中断机构（内中断）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%8F%98%E6%8D%A2%E6%9C%BA%E6%9E%84"><span class="toc-number">10.3.</span> <span class="toc-text"> 地址变换机构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6-8"><span class="toc-number">10.4.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">11.</span> <span class="toc-text"> 页面置换算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BD%B3%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">11.1.</span> <span class="toc-text"> 最佳置换算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95fifobelady-%E5%BC%82%E5%B8%B8"><span class="toc-number">11.2.</span> <span class="toc-text"> 先进先出置换算法（FIFO）（Belady 异常）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E6%9C%80%E4%B9%85%E6%9C%AA%E4%BD%BF%E7%94%A8%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95lru"><span class="toc-number">11.3.</span> <span class="toc-text"> 最近最久未使用置换算法（LRU）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8-%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8java"><span class="toc-number">11.3.1.</span> <span class="toc-text"> 哈希表 + 双向链表（Java）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95clock"><span class="toc-number">11.4.</span> <span class="toc-text"> 时钟置换算法（CLOCK）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B%E5%9E%8B%E7%9A%84%E6%97%B6%E9%92%9F%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">11.5.</span> <span class="toc-text"> 改进型的时钟置换算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">11.6.</span> <span class="toc-text"> 总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="toc-number">12.</span> <span class="toc-text"> 页面分配策略</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%BB%E7%95%99%E9%9B%86"><span class="toc-number">12.1.</span> <span class="toc-text"> 驻留集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E5%88%86%E9%85%8D-%E7%BD%AE%E6%8D%A2%E7%AD%96%E7%95%A5"><span class="toc-number">12.2.</span> <span class="toc-text"> 页面分配、置换策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BA%E5%AE%9A%E5%88%86%E9%85%8D%E5%B1%80%E9%83%A8%E7%BD%AE%E6%8D%A2"><span class="toc-number">12.2.1.</span> <span class="toc-text"> 固定分配局部置换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%88%86%E9%85%8D%E5%85%A8%E5%B1%80%E7%BD%AE%E6%8D%A2"><span class="toc-number">12.2.2.</span> <span class="toc-text"> 可变分配全局置换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%88%86%E9%85%8D%E5%B1%80%E9%83%A8%E7%BD%AE%E6%8D%A2"><span class="toc-number">12.2.3.</span> <span class="toc-text"> 可变分配局部置换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E8%B0%83%E5%85%A5%E9%A1%B5%E9%9D%A2"><span class="toc-number">12.3.</span> <span class="toc-text"> 何时调入页面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E8%B0%83%E9%A1%B5%E7%AD%96%E7%95%A5"><span class="toc-number">12.3.1.</span> <span class="toc-text"> 预调页策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E8%B0%83%E9%A1%B5%E7%AD%96%E7%95%A5"><span class="toc-number">12.3.2.</span> <span class="toc-text"> 请求调页策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E4%BD%95%E5%A4%84%E8%B0%83%E5%85%A5%E9%A1%B5%E9%9D%A2"><span class="toc-number">12.4.</span> <span class="toc-text"> 从何处调入页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%96%E5%8A%A8%E9%A2%A0%E7%B0%B8%E7%8E%B0%E8%B1%A1"><span class="toc-number">12.5.</span> <span class="toc-text"> 抖动（颠簸）现象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%9B%86"><span class="toc-number">12.6.</span> <span class="toc-text"> 工作集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6-9"><span class="toc-number">12.7.</span> <span class="toc-text"> 整体框架</span></a></li></ol></li></ol></div><div class="related panel pjax" data-title="系列文章"><ul><li ><a href="/2023/06/02/os/1%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" rel="bookmark" title="1、操作系统概述">1、操作系统概述</a></li><li ><a href="/2023/06/02/os/2%E3%80%81%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="bookmark" title="2、进程管理">2、进程管理</a></li><li  class="active"><a href="/2023/06/02/os/3%E3%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="bookmark" title="3、内存管理">3、内存管理</a></li><li ><a href="/2023/06/02/os/4%E3%80%81%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="bookmark" title="4、文件管理">4、文件管理</a></li><li ><a href="/2023/06/02/os/5%E3%80%81%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/" rel="bookmark" title="5、设备管理">5、设备管理</a></li></ul></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><img class="image" loading="lazy" decoding="async" itemprop="image" alt="htired" src="/assets/avatar.jpg"/><p class="name" itemprop="name">htired</p><div class="description" itemprop="description">送君南浦，伤如之何？</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">54</span><span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">3</span><span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">39</span><span class="name">标签</span></a></div></nav><div class="social"><a target="_blank" rel="noopener" href="https://github.com/yourname" class="item github" title="https:&#x2F;&#x2F;github.com&#x2F;yourname"><i class="ic i-github"></i></a></div><div class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item"><a href="/about/" rel="section"><i class="ic i-user"></i>关于</a></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li></ul></li><li class="item"><a href="/friends/" rel="section"><i class="ic i-heart"></i>友链</a></li><li class="item"><a href="/collect/" rel="section"><i class="ic i-shoucang"></i>收藏</a></li></div></div></div></div><ul id="quick"><li class="prev pjax"><a href="/2023/06/02/os/4%E3%80%81%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/2023/06/02/os/2%E3%80%81%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div></main><footer id="footer"><div class="inner"><div class="widgets"><div class="rpost pjax"><h2>随机文章</h2><ul><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/05/23/algorithm/%E5%AD%90%E6%95%B0%E7%BB%84%E8%8C%83%E5%9B%B4%E5%92%8C/">子数组范围和</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/04/11/algorithm/%E5%B9%B6%E6%9F%A5%E9%9B%86%E6%A8%A1%E6%9D%BF-%E5%86%97%E4%BD%99%E8%BF%9E%E6%8E%A5/">并查集模板 冗余连接</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/05/31/algorithm/%E7%9F%A9%E9%98%B5%E4%B8%AD%E4%B8%A5%E6%A0%BC%E9%80%92%E5%A2%9E%E7%9A%84%E5%8D%95%E5%85%83%E6%A0%BC%E6%95%B0/">矩阵中严格递增的单元格数</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/05/09/algorithm/%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E7%BE%8E%E4%B8%BD%E5%AD%97%E7%AC%A6%E4%B8%B2/">字典序最小的美丽字符串</a></span></li><li class="item"><div class="breadcrumb"></div><span><a href="/2024/07/26/algorithm/c/">未命名</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/06/08/algorithm/%E6%8B%BC%E6%8E%A5%E6%9C%80%E5%A4%A7%E6%95%B0/">拼接最大数</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/05/23/algorithm/%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC%E4%B9%8B%E5%92%8C/">子数组的最小值之和</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/05/23/algorithm/%E5%AD%90%E6%95%B0%E7%BB%84%E6%9C%80%E5%B0%8F%E4%B9%98%E7%A7%AF%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC/">子数组最小乘积的最大值</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/06/01/algorithm/%E5%9F%83%E5%BC%8F%E7%AD%9B-%E5%B8%A6%E9%98%88%E5%80%BC%E7%9A%84%E5%9B%BE%E8%BF%9E%E9%80%9A%E6%80%A7/">埃式筛-带阈值的图连通性</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/algorithm/" title="分类于算法">算法</a></div><span><a href="/2023/05/13/algorithm/%E7%BF%BB%E8%BD%AC%E5%AD%90%E6%95%B0%E7%BB%84%E5%BE%97%E5%88%B0%E6%9C%80%E5%A4%A7%E7%9A%84%E6%95%B0%E7%BB%84%E5%80%BC/">翻转子数组得到最大的数组值</a></span></li></ul></div><div class="rpost pjax"><h2>最新评论</h2></div></div><div class="status"><div class="copyright">&copy; 2022 -<span itemprop="copyrightYear">2024</span><span class="with-love"><i class="ic i-sakura rotate"></i></span><span class="author" itemprop="copyrightHolder">htired @ Htired Love</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i></span><span title="站点总字数">666k 字</span><span class="post-meta-divider"> | </span><span class="post-meta-item-icon"><i class="ic i-coffee"></i></span><span title="站点阅读时长">10:06</span></div><div class="powered-by">基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & Theme.<a target="_blank" rel="noopener" href="https://github.com/theme-shoka-x/hexo-theme-shokaX/">ShokaX</a></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL = {
+    ispost: true,
+        path: `2023/06/02/os/3、内存管理/`,
+        favicon: {
+        show: `好久不见`,
+        hide: `顺其自然`
+    },
+    search: {
+        placeholder: "文章搜索",
+        empty: "关于 「 ${query} 」，什么也没搜到",
+        stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    copy_tex: true,
+    katex: true,
+    mermaid: false,
+    audio: undefined,
+    fancybox: true,
+    nocopy: false,
+    outime: true,
+    template: `<div class="note warning"><p><span class="label warning">文章时效性提示</span><br>这是一篇发布于 {{publish}} 天前，最后一次更新在 {{updated}} 天前的文章，部分信息可能已经发生改变，请注意甄别。</p></div>`,
+    quiz: {
+        choice: `单选题`,
+        multiple: `多选题`,
+        true_false: `判断题`,
+        essay: `问答题`,
+        gap_fill: `填空题`,
+        mistake: `错题备注`
+    },
+    ignores: [
+        (uri) => uri.includes('#'),
+        (uri) => new RegExp(LOCAL.path + '$').test(uri),
+            []
+    ]
+};
+</script><script src="https://s4.zstatic.net/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous" fetchpriority="high"></script><script src="https://s4.zstatic.net/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha384-ZvpUoO&#x2F;+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn&#x2F;6Z&#x2F;hRTt8+pR6L4N2" crossorigin="anonymous" fetchpriority="high"></script><script src="/js/siteInit.js?v=0.4.11" type="module" fetchpriority="high" defer></script></body></html>
