@@ -7,12 +7,14 @@
     "home_page_url": "https://www.htired.top",
     "items": [
         {
-            "id": "https://www.htired.top/2024/08/13/pdf/",
-            "url": "https://www.htired.top/2024/08/13/pdf/",
-            "title": "pdf",
+            "id": "https://www.htired.top/2024/08/13/mpdf/",
+            "url": "https://www.htired.top/2024/08/13/mpdf/",
+            "title": "mpdf",
             "date_published": "2024-08-13T08:27:33.000Z",
-            "content_html": "<p>\n\n<iframe src=\"CoCoOp-paper.pdf\" style='width:100%;height:800px'></iframe>\n\n</p>\n",
-            "tags": []
+            "content_html": "<p>&lt;iframe src=&quot;/asset/CoCoOp.pdf&quot; width=&quot;100%&quot; height=&quot;100%&quot;&gt;  This browser does not support PDFs. Please download the PDF to view it: &lt;a href=&quot;asset/CoCoOp.pdf&quot;&gt;Download PDF&lt;/a&gt;  &lt;/iframe&gt;</p>\n",
+            "tags": [
+                "深度学习"
+            ]
         },
         {
             "id": "https://www.htired.top/2024/07/26/algorithm/c/",
